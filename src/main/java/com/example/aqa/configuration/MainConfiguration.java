@@ -10,6 +10,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+/**
+ * Entry point Spring configuration assembling all framework pieces.
+ */
 @Configuration
 @ComponentScan(basePackages = "com.example.aqa")
 @Import({
@@ -19,6 +22,11 @@ import org.springframework.context.annotation.Import;
 })
 public class MainConfiguration {
 
+    /**
+     * Provides the {@link AppDriver} used in tests.
+     *
+     * @return mock implementation of the application driver
+     */
     @Bean
     public AppDriver appDriver() {
         return new MockAppDriver();
