@@ -1,6 +1,6 @@
 package com.example.aqa.configuration;
 
-import com.example.aqa.configuration.extesion.ExtensionConfiguration;
+import com.example.aqa.configuration.extension.ExtensionConfiguration;
 import com.example.aqa.configuration.rest.RestApiClientConfiguration;
 import com.example.aqa.configuration.driver.appium.AppiumConfiguration;
 import com.example.aqa.driver.AppDriver;

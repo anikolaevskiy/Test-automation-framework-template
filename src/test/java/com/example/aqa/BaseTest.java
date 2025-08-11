@@ -3,7 +3,7 @@ package com.example.aqa;
 import com.example.aqa.app.client.PageExample;
 import com.example.aqa.app.server.RestApiClient;
 import com.example.aqa.configuration.MainConfiguration;
-import com.example.aqa.junit.extesion.ScreenshotOnFailureExtension;
+import com.example.aqa.junit.extension.ScreenshotOnFailureExtension;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

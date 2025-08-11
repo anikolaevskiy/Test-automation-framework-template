@@ -1,6 +1,6 @@
-package com.example.aqa.configuration.extesion;
+package com.example.aqa.configuration.extension;
 
-import com.example.aqa.junit.extesion.ScreenshotOnFailureExtension;
+import com.example.aqa.junit.extension.ScreenshotOnFailureExtension;
 import io.appium.java_client.AppiumDriver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.example.aqa.junit.extesion;
+package com.example.aqa.junit.extension;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
