@@ -1,0 +1,33 @@
+package com.example.aqa.configuration.driver.appium;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.options.UiAutomator2Options;
+import org.openqa.selenium.Capabilities;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
+
+/***
+ * Uncomment the following code to enable Appium driver configuration.
+ */
+@Configuration
+@EnableConfigurationProperties(AppiumProperties.class)
+public class AppiumConfiguration {
+
+//    @Bean
+//    public Capabilities capabilities(AppiumProperties properties) {
+//        return new UiAutomator2Options()
+//                .setNewCommandTimeout(Duration.ofMinutes(properties.getTimeOut()))
+//                .setDeviceName(properties.getDevice())
+//                .setApp(properties.getApp());
+//    }
+
+//    @Bean(destroyMethod = "quit")
+//    public AppiumDriver appiumDriver(Capabilities capabilities, AppiumProperties properties) throws MalformedURLException {
+//        return new AppiumDriver(new URL( String.format("%s:%d", properties.getHost(), properties.getPort())), capabilities);
+//    }
+}

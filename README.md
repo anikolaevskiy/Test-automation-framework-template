@@ -1,0 +1,1 @@
+### Java test automation framework template
