@@ -10,7 +10,7 @@ configuration classes.
 
 ```
 src/main/java
-├── com.example.aqa.app          # Page objects and API client
+├── com.example.aqa.app           # Page objects and API client
 ├── com.example.aqa.configuration # Spring configuration and properties
 ├── com.example.aqa.driver        # Application driver abstractions
 └── com.example.aqa.junit         # JUnit 5 extensions
