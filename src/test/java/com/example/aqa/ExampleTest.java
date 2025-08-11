@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 class ExampleTest extends BaseTest {
 
     @Test
-    @DisplayName("Sorting by Raids score works correctly")
-    void raidsScoreSortingTest() {
+    @DisplayName("Example test")
+    void exampleTest() {
 
         log.info("Waiting for button...");
         pageExample.someButton().waitObject();
