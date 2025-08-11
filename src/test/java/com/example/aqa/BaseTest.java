@@ -14,7 +14,7 @@ public class BaseTest {
 
     @Autowired
     @RegisterExtension
-    ScreenshotOnFailureExtension screenshotOnFailureExtension;
+    protected ScreenshotOnFailureExtension screenshotOnFailureExtension;
 
     @Autowired
     protected PageExample pageExample;
