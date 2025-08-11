@@ -5,9 +5,15 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Example test demonstrating interactions with the mock application and server.
+ */
 @Slf4j
 class ExampleTest extends BaseTest {
 
+    /**
+     * Simple test that clicks a button and verifies the label text using retries.
+     */
     @Test
     @DisplayName("Example test")
     void exampleTest() {

@@ -5,12 +5,18 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.PropertySource;
 
+/**
+ * Properties describing the target server used by REST tests.
+ */
 @PropertySource(value = "classpath:server.properties")
 @ConfigurationProperties(prefix = "server")
 @ConfigurationPropertiesScan
 @Data
 public class ServerProperties {
 
+    /** Server host address. */
     private String host;
+
+    /** Server port number. */
     private int port;
 }

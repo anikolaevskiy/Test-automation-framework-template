@@ -11,8 +11,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 
-/***
- * Uncomment the following code to enable Appium driver configuration.
+/**
+ * Placeholder configuration for an Appium-based driver.
+ * Uncomment the example beans to enable real Appium support.
  */
 @Configuration
 @EnableConfigurationProperties(AppiumProperties.class)
