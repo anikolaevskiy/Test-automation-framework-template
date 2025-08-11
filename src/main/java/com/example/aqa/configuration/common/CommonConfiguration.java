@@ -13,7 +13,7 @@ public class CommonConfiguration {
     public RetryTemplate assertionRetry(RetryProperties properties) {
         return RetryTemplate.builder().retryOn(AssertionError.class)
                 .maxAttempts(properties.getAttempts())
-                .fixedBackoff(properties.getAttempts())
+                .fixedBackoff(properties.getBackoff())
                 .build();
     }
 }
