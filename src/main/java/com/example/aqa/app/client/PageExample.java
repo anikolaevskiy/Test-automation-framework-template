@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 
 /**
  * Example page object that exposes application elements as {@link AppObject}s.
+ * <p>
+ * Real projects are expected to follow a similar pattern where page classes act
+ * as factories for small element wrappers. This keeps tests readable and makes
+ * adding new elements trivial.
  */
 @Component
 @RequiredArgsConstructor

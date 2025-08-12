@@ -7,6 +7,9 @@ import org.springframework.context.annotation.PropertySource;
 
 /**
  * Configuration properties for retry behavior used across tests.
+ * <p>
+ * Exposing retry settings as properties allows each environment to control how
+ * aggressive the polling should be without modifying test code.
  */
 @PropertySource(value = "classpath:common.properties")
 @ConfigurationProperties(prefix = "retry")

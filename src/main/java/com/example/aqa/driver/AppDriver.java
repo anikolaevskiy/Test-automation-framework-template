@@ -2,6 +2,11 @@ package com.example.aqa.driver;
 
 /**
  * App driver abstraction for application testing.
+ * <p>
+ * Tests interact with the application exclusively through this interface
+ * allowing different driver technologies to be swapped in and out. Keeping the
+ * contract minimal encourages small, focused page objects while still enabling
+ * complex implementations underneath (Appium, Selenium, mock drivers, etc.).
  */
 public interface AppDriver {
 

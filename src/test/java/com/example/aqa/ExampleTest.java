@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Example test demonstrating interactions with the mock application and server.
+ * <p>
+ * It showcases the typical flow for UI driven tests: waiting for elements,
+ * performing actions and verifying results with a {@link org.springframework.retry.support.RetryTemplate}.
  */
 @Slf4j
 class ExampleTest extends BaseTest {

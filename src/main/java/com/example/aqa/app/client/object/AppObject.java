@@ -5,8 +5,11 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * Represents a page element in the application under test.
- * The element is identified by a locator and interacted with through
- * an {@link AppDriver} implementation.
+ * <p>
+ * Each instance simply stores a locator and delegates actions to the
+ * {@link AppDriver}. Keeping the object this small encourages composition in
+ * page classes and ensures the same page objects can be reused regardless of
+ * the underlying driver technology.
  */
 @RequiredArgsConstructor
 public class AppObject {

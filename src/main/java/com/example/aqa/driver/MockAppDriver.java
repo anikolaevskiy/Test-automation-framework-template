@@ -4,8 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * Mock implementation of {@link AppDriver} for testing purposes.
- * This class simulates interactions with the application without performing real actions.
- * You can implement your own driver based on Appium, Selenium, Playwright, etc.
+ * <p>
+ * The mock driver is intentionally verbose and side‑effect free so the rest of
+ * the framework can be exercised without connecting to a real application.
+ * Teams are expected to replace this with their own implementation (Appium,
+ * Selenium, Playwright, etc.) but keeping a mock version makes the template
+ * runnable out of the box.
  */
 @Slf4j
 public class MockAppDriver implements AppDriver {
