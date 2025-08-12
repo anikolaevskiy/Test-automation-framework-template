@@ -24,6 +24,7 @@
         <awaitility.version>4.3.0</awaitility.version>
         <jackson-databind.version>2.19.2</jackson-databind.version>
         <selenium.version>4.21.0</selenium.version>
+        <playwright.version>1.48.0</playwright.version>
     </properties>
     <dependencies>
 
@@ -115,11 +116,17 @@
             <version>${selenium.version}</version>
         </dependency>
 
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-firefox-driver</artifactId>
-			<version>${selenium.version}</version>
-		</dependency>
+                <dependency>
+                        <groupId>org.seleniumhq.selenium</groupId>
+                        <artifactId>selenium-firefox-driver</artifactId>
+                        <version>${selenium.version}</version>
+                </dependency>
+
+        <dependency>
+            <groupId>com.microsoft.playwright</groupId>
+            <artifactId>playwright</artifactId>
+            <version>${playwright.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

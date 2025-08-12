@@ -3,6 +3,7 @@ package com.example.aqa.configuration;
 import com.example.aqa.configuration.common.CommonConfiguration;
 import com.example.aqa.configuration.driver.selenium.SeleniumChromeConfiguration;
 import com.example.aqa.configuration.driver.selenium.SeleniumFireFoxConfiguration;
+import com.example.aqa.configuration.driver.playwright.PlaywrightChromiumConfiguration;
 import com.example.aqa.configuration.driver.waiter.WebDriverWaitConfiguration;
 import com.example.aqa.configuration.extension.ExtensionConfiguration;
 import com.example.aqa.configuration.rest.RestApiClientConfiguration;
@@ -11,6 +12,8 @@ import com.example.aqa.driver.AppDriver;
 import com.example.aqa.driver.AppiumBasedAppDriver;
 import com.example.aqa.driver.MockAppDriver;
 import com.example.aqa.driver.SeleniumBasedAppDriver;
+import com.example.aqa.driver.PlaywrightBasedAppDriver;
+import com.microsoft.playwright.Page;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -33,6 +36,7 @@ import org.springframework.context.annotation.*;
         AppiumConfiguration.class,
         SeleniumChromeConfiguration.class,
         SeleniumFireFoxConfiguration.class,
+        PlaywrightChromiumConfiguration.class,
         WebDriverWaitConfiguration.class,
         RestApiClientConfiguration.class,
         ExtensionConfiguration.class,
@@ -88,6 +92,22 @@ public class MainConfiguration {
     @Profile("selenium")
     public AppDriver seleniumBasedAppDriver(WebDriver webDriver, WebDriverWait webDriverWait) {
         return new SeleniumBasedAppDriver(webDriver, webDriverWait);
+    }
+
+    /**
+     * Provides the {@link AppDriver} used in tests when running with Playwright.
+     * <p>
+     * Activating the {@code playwright} profile enables browser automation via
+     * Playwright without altering test code. This bean adapts the Playwright
+     * {@link Page} into the framework's {@link AppDriver} abstraction.
+     *
+     * @param page the Playwright page instance
+     * @return Playwright-based implementation of the application driver
+     */
+    @Bean
+    @Profile("playwright")
+    public AppDriver playwrightBasedAppDriver(Page page) {
+        return new PlaywrightBasedAppDriver(page);
     }
 
 }
