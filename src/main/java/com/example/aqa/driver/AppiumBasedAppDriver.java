@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Simple example of Appium-based {@link AppDriver} implementation.
@@ -19,6 +20,8 @@ public class AppiumBasedAppDriver implements AppDriver {
 
     /** Underlying Appium driver executing real commands. */
     private final AppiumDriver appiumDriver;
+
+    private final WebDriverWait wait;
 
     /** {@inheritDoc} */
     @Override
@@ -45,10 +48,7 @@ public class AppiumBasedAppDriver implements AppDriver {
     @Override
     public void waitObject(String locator) {
         log.info("Waiting for element with locator: {} by appium driver", locator);
-        // Implement waiting logic here, e.g., using WebDriverWait
-        // Example: new WebDriverWait(appiumDriver, Duration.ofSeconds(10))
-        //      .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
-        // Note: Actual implementation may vary based on your requirements and Appium setup.
+        wait.until(driver -> driver.findElement(By.xpath(locator)).isDisplayed());
     }
 }
 

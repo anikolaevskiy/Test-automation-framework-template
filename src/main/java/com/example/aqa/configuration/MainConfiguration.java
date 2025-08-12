@@ -1,16 +1,20 @@
 package com.example.aqa.configuration;
 
 import com.example.aqa.configuration.common.CommonConfiguration;
+import com.example.aqa.configuration.driver.selenium.SeleniumChromeConfiguration;
+import com.example.aqa.configuration.driver.selenium.SeleniumFireFoxConfiguration;
+import com.example.aqa.configuration.driver.waiter.WebDriverWaitConfiguration;
 import com.example.aqa.configuration.extension.ExtensionConfiguration;
 import com.example.aqa.configuration.rest.RestApiClientConfiguration;
 import com.example.aqa.configuration.driver.appium.AppiumConfiguration;
-import com.example.aqa.configuration.driver.selenium.SeleniumConfiguration;
 import com.example.aqa.driver.AppDriver;
 import com.example.aqa.driver.AppiumBasedAppDriver;
 import com.example.aqa.driver.MockAppDriver;
 import com.example.aqa.driver.SeleniumBasedAppDriver;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.*;
 
 /**
@@ -27,7 +31,9 @@ import org.springframework.context.annotation.*;
 @ComponentScan(basePackages = "com.example.aqa")
 @Import({
         AppiumConfiguration.class,
-        SeleniumConfiguration.class,
+        SeleniumChromeConfiguration.class,
+        SeleniumFireFoxConfiguration.class,
+        WebDriverWaitConfiguration.class,
         RestApiClientConfiguration.class,
         ExtensionConfiguration.class,
         CommonConfiguration.class
@@ -64,8 +70,8 @@ public class MainConfiguration {
      */
     @Bean
     @Profile("appium")
-    public AppDriver appiumBasedAppDriver(AppiumDriver appiumDriver) {
-        return new AppiumBasedAppDriver(appiumDriver);
+    public AppDriver appiumBasedAppDriver(AppiumDriver appiumDriver, WebDriverWait webDriverWait) {
+        return new AppiumBasedAppDriver(appiumDriver, webDriverWait);
     }
 
     /**
@@ -80,8 +86,8 @@ public class MainConfiguration {
      */
     @Bean
     @Profile("selenium")
-    public AppDriver seleniumBasedAppDriver(WebDriver webDriver) {
-        return new SeleniumBasedAppDriver(webDriver);
+    public AppDriver seleniumBasedAppDriver(WebDriver webDriver, WebDriverWait webDriverWait) {
+        return new SeleniumBasedAppDriver(webDriver, webDriverWait);
     }
 
 }

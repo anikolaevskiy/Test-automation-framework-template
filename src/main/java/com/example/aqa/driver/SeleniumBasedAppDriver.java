@@ -7,8 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
 /**
  * {@link AppDriver} implementation backed by Selenium's {@link WebDriver}.
  * <p>
@@ -23,6 +21,8 @@ public class SeleniumBasedAppDriver implements AppDriver {
 
     /** Underlying Selenium driver executing commands in a browser. */
     private final WebDriver webDriver;
+
+    private final WebDriverWait wait;
 
     /** {@inheritDoc} */
     @Override
@@ -49,7 +49,6 @@ public class SeleniumBasedAppDriver implements AppDriver {
     @Override
     public void waitObject(String locator) {
         log.info("Waiting for element with locator: {} by selenium driver", locator);
-        new WebDriverWait(webDriver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
     }
 }
