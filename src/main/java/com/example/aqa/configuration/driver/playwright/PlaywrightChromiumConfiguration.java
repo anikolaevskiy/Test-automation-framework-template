@@ -15,7 +15,7 @@ import java.net.URISyntaxException;
  * Spring configuration wiring Playwright Chromium {@link Page} instances.
  * <p>
  * The configuration is activated when the {@code playwright} profile is enabled.
- * Additional profiles {@code chromium-local} or {@code chromium-remote} decide
+ * Additional profiles {@code chrome-local} or {@code chrome-remote} decide
  * whether the browser runs locally or connects to a remote endpoint.
  */
 @Profile({"playwright"})
@@ -41,7 +41,7 @@ public class PlaywrightChromiumConfiguration {
      * @return remote page
      * @throws URISyntaxException if the endpoint URI is invalid
      */
-    @Profile("chromium-remote")
+    @Profile("chrome-remote")
     @Bean(destroyMethod = "close")
     public Page remoteChromiumPage(PlaywrightProperties properties, BrowserType.LaunchOptions options)
             throws URISyntaxException {
@@ -59,7 +59,7 @@ public class PlaywrightChromiumConfiguration {
      * @param options    launch options
      * @return local page
      */
-    @Profile("chromium-local")
+    @Profile("chrome-local")
     @Bean(destroyMethod = "close")
     public Page localChromiumPage(PlaywrightProperties properties, BrowserType.LaunchOptions options) {
         var playwright = Playwright.create();

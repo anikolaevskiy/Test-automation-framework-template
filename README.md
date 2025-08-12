@@ -42,6 +42,7 @@ example:
 ```properties
 spring.profiles.active=selenium,chrome-remote  # run against a Selenium Grid
 spring.profiles.active=appium                  # execute tests via Appium
+spring.profiles.active=playwright,chrome-local # run via Playwright locally
 ```
 
 You can override this value on the command line with
@@ -69,10 +70,11 @@ selenium.grid-port=4444
 
 Settings used when Playwright profiles are active:
 
-- `playwright.app-host` / `playwright.app-port` – address of the web application
-  under test.
+- `playwright.app-host` / `playwright.app-port` – address of the web
+  application under test. Required for both local and remote sessions.
 - `playwright.grid-host` / `playwright.grid-port` – remote debugging endpoint
-  when connecting to an existing Chromium instance.
+  when connecting to an existing Chrome instance. Omit when running Chrome
+  locally.
 
 Example:
 
@@ -180,14 +182,16 @@ grid connection details are read from `selenium.grid-host` and
 `selenium.grid-port`.
 
 To execute browser based tests with Playwright choose the browser and whether
-it should run locally or connect to an existing Chromium instance:
+it should run locally or connect to an existing Chrome instance. Ensure
+`src/main/resources/playwright.properties` points to your application and, for
+remote sessions, to the Chrome debugging endpoint:
 
 ```bash
-# run Chromium locally
-mvn test -Dspring.profiles.active="playwright,chromium-local"
+# run Chrome locally
+mvn test -Dspring.profiles.active="playwright,chrome-local"
 
-# connect to a remote Chromium instance
-mvn test -Dspring.profiles.active="playwright,chromium-remote"
+# connect to a remote Chrome instance
+mvn test -Dspring.profiles.active="playwright,chrome-remote"
 ```
 
 ### Start Writing Your Own Tests
