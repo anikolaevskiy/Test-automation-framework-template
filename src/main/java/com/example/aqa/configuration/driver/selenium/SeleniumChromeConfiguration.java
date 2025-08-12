@@ -21,7 +21,7 @@ import java.net.URISyntaxException;
  * chrome-local} or {@code chrome-remote} decide whether the browser runs on
  * the local machine or connects to a remote Selenium Grid.
  */
-@Profile({"selenium", "chrome"})
+@Profile({"selenium"})
 @Configuration
 @EnableConfigurationProperties(SeleniumProperties.class)
 public class SeleniumChromeConfiguration {
@@ -50,11 +50,8 @@ public class SeleniumChromeConfiguration {
      */
     @Profile("chrome-remote")
     @Bean(destroyMethod = "quit")
-    public WebDriver remoteChromeDriver(SeleniumProperties properties, ChromeOptions options)
-            throws MalformedURLException, URISyntaxException {
-        var driver = new RemoteWebDriver(
-                new URI(String.format("%s:%d/wd/hub", properties.getGridHost(), properties.getGridPort())).toURL(),
-                options);
+    public WebDriver remoteChromeDriver(SeleniumProperties properties, ChromeOptions options) throws MalformedURLException, URISyntaxException {
+        var driver = new RemoteWebDriver(new URI(String.format("%s:%d/wd/hub", properties.getGridHost(), properties.getGridPort())).toURL(), options);
         navigateAppStartPage(properties, driver);
         return driver;
     }

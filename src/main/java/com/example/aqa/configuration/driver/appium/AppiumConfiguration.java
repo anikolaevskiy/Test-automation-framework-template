@@ -3,6 +3,7 @@ package com.example.aqa.configuration.driver.appium;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.WebDriver;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -63,7 +64,7 @@ public class AppiumConfiguration {
      * @throws URISyntaxException    if the server URI cannot be constructed
      */
     @Bean(destroyMethod = "quit")
-    public AppiumDriver appiumDriver(Capabilities capabilities, AppiumProperties properties)
+    public WebDriver appiumDriver(Capabilities capabilities, AppiumProperties properties)
             throws MalformedURLException, URISyntaxException {
         return new AppiumDriver(
                 new URI(String.format("%s:%d", properties.getHost(), properties.getPort())).toURL(),

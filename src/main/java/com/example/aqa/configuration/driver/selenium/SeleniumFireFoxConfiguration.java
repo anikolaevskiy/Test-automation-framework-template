@@ -21,7 +21,7 @@ import java.net.URISyntaxException;
  * profiles decide whether the browser runs on the current machine or connects
  * to a Selenium Grid.
  */
-@Profile({"selenium", "firefox"})
+@Profile({"selenium"})
 @Configuration
 @EnableConfigurationProperties(SeleniumProperties.class)
 public class SeleniumFireFoxConfiguration {
@@ -47,11 +47,8 @@ public class SeleniumFireFoxConfiguration {
      */
     @Profile("firefox-remote")
     @Bean(destroyMethod = "quit")
-    public WebDriver remoteFirefoxDriver(SeleniumProperties properties, FirefoxOptions options)
-            throws MalformedURLException, URISyntaxException {
-        var driver = new RemoteWebDriver(
-                new URI(String.format("%s:%d/wd/hub", properties.getGridHost(), properties.getGridPort())).toURL(),
-                options);
+    public WebDriver remoteFirefoxDriver(SeleniumProperties properties, FirefoxOptions options) throws MalformedURLException, URISyntaxException {
+        var driver = new RemoteWebDriver(new URI(String.format("%s:%d/wd/hub", properties.getGridHost(), properties.getGridPort())).toURL(), options);
         navigateAppStartPage(properties, driver);
         return driver;
     }

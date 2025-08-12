@@ -26,8 +26,9 @@ public class ScreenshotOnFailureExtension implements TestWatcher {
     @SneakyThrows
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
-        log.info("Mock taking screenshot on test failure: {}", context.getRequiredTestMethod().getName());
-//        var screenshot =
+        log.info("Test '{}' failed with exception: {}", context.getDisplayName(), cause.getMessage());
+        log.info("Taking screenshot for debugging...");
+//        var screenshot = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
 //        Files.write(Path.of("target", context.getRequiredTestMethod().getName() + ".png"), screenshot);
     }
 }
