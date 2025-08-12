@@ -36,6 +36,14 @@ local Selenium driver:
 spring.profiles.active=selenium,chrome-local
 ```
 
+Other combinations are possible depending on the target environment, for
+example:
+
+```properties
+spring.profiles.active=selenium,chrome-remote  # run against a Selenium Grid
+spring.profiles.active=appium                  # execute tests via Appium
+```
+
 You can override this value on the command line with
 `-Dspring.profiles.active=...`.
 
