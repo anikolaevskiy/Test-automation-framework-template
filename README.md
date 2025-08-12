@@ -65,6 +65,24 @@ selenium.grid-host=http://127.0.0.1
 selenium.grid-port=4444
 ```
 
+### `playwright.properties`
+
+Settings used when Playwright profiles are active:
+
+- `playwright.app-host` / `playwright.app-port` – address of the web application
+  under test.
+- `playwright.grid-host` / `playwright.grid-port` – remote debugging endpoint
+  when connecting to an existing Chromium instance.
+
+Example:
+
+```properties
+playwright.app-host=localhost
+playwright.app-port=1234
+playwright.grid-host=http://127.0.0.1
+playwright.grid-port=9222
+```
+
 ### `appium.properties`
 
 Settings used with the `appium` profile:
@@ -160,6 +178,17 @@ The browser automatically navigates to the application host defined in
 optional `selenium.app-port` settings. When running against a Selenium Grid the
 grid connection details are read from `selenium.grid-host` and
 `selenium.grid-port`.
+
+To execute browser based tests with Playwright choose the browser and whether
+it should run locally or connect to an existing Chromium instance:
+
+```bash
+# run Chromium locally
+mvn test -Dspring.profiles.active="playwright,chromium-local"
+
+# connect to a remote Chromium instance
+mvn test -Dspring.profiles.active="playwright,chromium-remote"
+```
 
 ### Start Writing Your Own Tests
 
