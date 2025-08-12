@@ -2,9 +2,9 @@
 
 This project demonstrates a minimal yet extensible setup for building automated
 tests in Java. It combines Spring Boot for dependency management, JUnit 5 for
-testing, and optional Appium integration for mobile automation. The framework
-contains examples of page objects, REST clients, custom JUnit extensions and
-configuration classes.
+testing, and optional Appium and Selenium integrations for mobile and web
+automation. The framework contains examples of page objects, REST clients,
+custom JUnit extensions and configuration classes.
 
 ## Project Structure
 
@@ -50,11 +50,20 @@ mvn test -Dspring.profiles.active=appium
 
 Profiles can also be set in `src/main/resources/application.properties`.
 
+To execute browser based tests through Selenium use the `selenium` profile:
+
+```bash
+mvn test -Dspring.profiles.active=selenium
+```
+Configuration for a remote Selenium server can be provided in
+`src/main/resources/selenium.properties` via `selenium.remote-host` and
+`selenium.remote-port` settings.
+
 ### Start Writing Your Own Tests
 
 1. **Choose a profile** – keep the default `mock` profile while developing
-   framework pieces, then switch to `appium` (or another custom profile) when a
-   real device is available.
+   framework pieces, then switch to `appium`, `selenium` or another custom
+   profile when real infrastructure is available.
 2. **Create page objects** – add classes under
    `src/main/java/com/example/aqa/app/client` returning `AppObject` instances for
    the screens you want to exercise.
@@ -72,7 +81,8 @@ between environments as simple as changing the active profile.
 
 - Implement your own `AppDriver` to integrate with Appium, Selenium or another
   automation tool.
-- Enable the beans in `AppiumConfiguration` to connect to a real Appium server.
+- Enable the beans in `AppiumConfiguration` or `SeleniumConfiguration` to
+  connect to a real device or browser.
 - Add additional page objects, API clients or JUnit extensions as needed.
 
 ## License
