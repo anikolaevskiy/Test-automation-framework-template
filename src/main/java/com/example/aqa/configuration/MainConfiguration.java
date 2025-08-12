@@ -3,10 +3,13 @@ package com.example.aqa.configuration;
 import com.example.aqa.configuration.extension.ExtensionConfiguration;
 import com.example.aqa.configuration.rest.RestApiClientConfiguration;
 import com.example.aqa.configuration.driver.appium.AppiumConfiguration;
+import com.example.aqa.configuration.driver.selenium.SeleniumConfiguration;
 import com.example.aqa.driver.AppDriver;
 import com.example.aqa.driver.AppiumBasedAppDriver;
 import com.example.aqa.driver.MockAppDriver;
+import com.example.aqa.driver.SeleniumBasedAppDriver;
 import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.WebDriver;
 import org.springframework.context.annotation.*;
 
 /**
@@ -23,6 +26,7 @@ import org.springframework.context.annotation.*;
 @ComponentScan(basePackages = "com.example.aqa")
 @Import({
         AppiumConfiguration.class,
+        SeleniumConfiguration.class,
         RestApiClientConfiguration.class,
         ExtensionConfiguration.class
 })
@@ -60,6 +64,24 @@ public class MainConfiguration {
     @Profile("appium")
     public AppDriver appiumBasedAppDriver(AppiumDriver appiumDriver) {
         return new AppiumBasedAppDriver(appiumDriver);
+    }
+
+    /**
+     * Provides the {@link AppDriver} used in tests when running with Selenium.
+     * <p>
+     * Activating the {@code selenium} profile enables browser based testing
+     * without altering test code. A second profile such as {@code chrome} or
+     * {@code firefox} must also be active to select the concrete browser
+     * implementation. This bean adapts the raw {@link WebDriver} into the
+     * framework's {@link AppDriver} abstraction.
+     *
+     * @param webDriver the Selenium driver instance
+     * @return Selenium-based implementation of the application driver
+     */
+    @Bean
+    @Profile("selenium")
+    public AppDriver seleniumBasedAppDriver(WebDriver webDriver) {
+        return new SeleniumBasedAppDriver(webDriver);
     }
 
 }
