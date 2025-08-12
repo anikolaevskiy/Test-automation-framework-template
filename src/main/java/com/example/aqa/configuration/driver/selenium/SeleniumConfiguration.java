@@ -4,6 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import java.net.MalformedURLException;
+import java.net.URL;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,14 +35,20 @@ public class SeleniumConfiguration {
         return new ChromeOptions().addArguments("--disable-search-engine-choice-screen");
     }
 
+    @Profile("firefox")
+    @Bean
+    public FirefoxOptions firefoxOptions() {
+        return new FirefoxOptions();
+    }
+
     /**
      * Creates a local {@link ChromeDriver} and opens the application start page.
      *
      * @param properties Selenium configuration properties
-     * @param options additional Chrome options
+     * @param options    additional Chrome options
      * @return configured WebDriver
      */
-    @Profile("chrome")
+    @Profile("chrome & local")
     @Bean(destroyMethod = "quit")
     public WebDriver chromeDriver(SeleniumProperties properties, ChromeOptions options) {
         var driver = new ChromeDriver(options);
@@ -47,15 +57,56 @@ public class SeleniumConfiguration {
     }
 
     /**
+     * Creates a remote {@link WebDriver} session on Selenium Grid using Chrome
+     * and opens the application start page.
+     *
+     * @param properties Selenium configuration properties
+     * @param options    additional Chrome options
+     * @return configured WebDriver
+     * @throws MalformedURLException if the grid URL is invalid
+     */
+    @Profile("chrome & remote")
+    @Bean(destroyMethod = "quit")
+    public WebDriver remoteChromeDriver(SeleniumProperties properties, ChromeOptions options)
+            throws MalformedURLException {
+        var driver = new RemoteWebDriver(
+                new URL(String.format("%s:%d/wd/hub", properties.getGridHost(), properties.getGridPort())),
+                options);
+        navigateAppStartPage(properties, driver);
+        return driver;
+    }
+
+    /**
      * Creates a local {@link FirefoxDriver} and opens the application start page.
      *
      * @param properties Selenium configuration properties
+     * @param options    additional Firefox options
      * @return configured WebDriver
      */
-    @Profile("firefox")
+    @Profile("firefox & local")
     @Bean(destroyMethod = "quit")
-    public WebDriver firefox(SeleniumProperties properties) {
-        var driver = new FirefoxDriver();
+    public WebDriver firefox(SeleniumProperties properties, FirefoxOptions options) {
+        var driver = new FirefoxDriver(options);
+        navigateAppStartPage(properties, driver);
+        return driver;
+    }
+
+    /**
+     * Creates a remote {@link WebDriver} session on Selenium Grid using Firefox
+     * and opens the application start page.
+     *
+     * @param properties Selenium configuration properties
+     * @param options    additional Firefox options
+     * @return configured WebDriver
+     * @throws MalformedURLException if the grid URL is invalid
+     */
+    @Profile("firefox & remote")
+    @Bean(destroyMethod = "quit")
+    public WebDriver remoteFirefoxDriver(SeleniumProperties properties, FirefoxOptions options)
+            throws MalformedURLException {
+        var driver = new RemoteWebDriver(
+                new URL(String.format("%s:%d/wd/hub", properties.getGridHost(), properties.getGridPort())),
+                options);
         navigateAppStartPage(properties, driver);
         return driver;
     }
