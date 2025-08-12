@@ -1,5 +1,6 @@
 package com.example.aqa.configuration;
 
+import com.example.aqa.configuration.common.CommonConfiguration;
 import com.example.aqa.configuration.extension.ExtensionConfiguration;
 import com.example.aqa.configuration.rest.RestApiClientConfiguration;
 import com.example.aqa.configuration.driver.appium.AppiumConfiguration;
@@ -28,7 +29,8 @@ import org.springframework.context.annotation.*;
         AppiumConfiguration.class,
         SeleniumConfiguration.class,
         RestApiClientConfiguration.class,
-        ExtensionConfiguration.class
+        ExtensionConfiguration.class,
+        CommonConfiguration.class
 })
 public class MainConfiguration {
 
