@@ -11,6 +11,10 @@ import org.springframework.retry.support.RetryTemplate;
 
 /**
  * Base class for tests providing common Spring context and utilities.
+ * <p>
+ * Centralising the Spring Boot setup in a superclass keeps individual tests
+ * focused on behaviour while still giving them access to shared beans such as
+ * page objects, REST clients and retry logic.
  */
 @SpringBootTest(classes = MainConfiguration.class)
 public class BaseTest {

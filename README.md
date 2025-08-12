@@ -37,6 +37,37 @@ mvn test
 The included tests use a mock application driver and a simple REST client. They
 can be used as a reference when adding real Appium or web drivers.
 
+### Selecting Spring Profiles
+
+This project uses Spring profiles to switch between different driver
+implementations. By default the `mock` profile is active which provides a
+light‑weight driver that does not require external infrastructure. To run tests
+against a real Appium server activate the `appium` profile:
+
+```bash
+mvn test -Dspring.profiles.active=appium
+```
+
+Profiles can also be set in `src/main/resources/application.properties`.
+
+### Start Writing Your Own Tests
+
+1. **Choose a profile** – keep the default `mock` profile while developing
+   framework pieces, then switch to `appium` (or another custom profile) when a
+   real device is available.
+2. **Create page objects** – add classes under
+   `src/main/java/com/example/aqa/app/client` returning `AppObject` instances for
+   the screens you want to exercise.
+3. **Provide a driver** – implement the `AppDriver` interface or extend the
+   supplied ones to interact with your application. Register the implementation
+   in a configuration class and guard it with an appropriate Spring profile.
+4. **Write tests** – place your JUnit 5 tests in
+   `src/test/java/com/example/aqa` and inject the required page objects or
+   clients. Use the `RetryTemplate` bean when verifying asynchronous behaviour.
+
+Following this pattern keeps tests technology‑agnostic and makes switching
+between environments as simple as changing the active profile.
+
 ## Extending the Template
 
 - Implement your own `AppDriver` to integrate with Appium, Selenium or another

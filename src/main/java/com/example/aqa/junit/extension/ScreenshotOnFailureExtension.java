@@ -8,6 +8,10 @@ import org.junit.jupiter.api.extension.TestWatcher;
 
 /**
  * Example of JUnit 5 extension that takes a screenshot on test failure.
+ * <p>
+ * The implementation only logs the intention to capture a screenshot. In a
+ * real project this is the place to hook into WebDriver or Appium and persist
+ * the image for debugging failing tests.
  */
 @Slf4j
 @RequiredArgsConstructor

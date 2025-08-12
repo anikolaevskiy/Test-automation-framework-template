@@ -7,11 +7,18 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 
 /**
  * Simple REST client used for demonstrating API interactions with {@link RestAssured}.
+ * <p>
+ * The client intentionally configures base URI and logging globally so that
+ * individual tests remain concise. It showcases how service clients can be
+ * registered as Spring beans and reused across tests.
  */
 public class RestApiClient {
 
     /**
      * Creates a client and configures RestAssured base URI and logging filters.
+     * <p>
+     * Centralising this setup keeps tests free from repetitive configuration and
+     * ensures every request/response is logged for easier debugging.
      *
      * @param host API host
      * @param port API port

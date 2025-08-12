@@ -7,11 +7,17 @@ import org.openqa.selenium.By;
 
 /**
  * Simple example of Appium-based {@link AppDriver} implementation.
+ * <p>
+ * The methods intentionally delegate directly to the underlying
+ * {@link AppiumDriver}. The goal is to keep this layer thin so that teams can
+ * expand it with their own waiting strategies or logging while page objects and
+ * tests remain unchanged.
  */
 @Slf4j
 @RequiredArgsConstructor
 public class AppiumBasedAppDriver implements AppDriver {
 
+    /** Underlying Appium driver executing real commands. */
     private final AppiumDriver appiumDriver;
 
     /** {@inheritDoc} */

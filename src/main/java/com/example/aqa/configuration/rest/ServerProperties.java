@@ -7,6 +7,10 @@ import org.springframework.context.annotation.PropertySource;
 
 /**
  * Properties describing the target server used by REST tests.
+ * <p>
+ * Externalising host and port allows the same tests to run against local
+ * mocks, staging or production-like environments simply by changing the
+ * property file.
  */
 @PropertySource(value = "classpath:server.properties")
 @ConfigurationProperties(prefix = "server")
