@@ -7,7 +7,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,9 +49,9 @@ public class SeleniumConfiguration {
      * @param options    additional Chrome options
      * @return configured WebDriver
      */
-    @Profile("chrome & local")
+    @Profile({"chrome", "local"})
     @Bean(destroyMethod = "quit")
-    public WebDriver chromeDriver(SeleniumProperties properties, ChromeOptions options) {
+    public WebDriver localChromeDriver(SeleniumProperties properties, ChromeOptions options) {
         var driver = new ChromeDriver(options);
         navigateAppStartPage(properties, driver);
         return driver;
@@ -64,13 +65,14 @@ public class SeleniumConfiguration {
      * @param options    additional Chrome options
      * @return configured WebDriver
      * @throws MalformedURLException if the grid URL is invalid
+     * @throws URISyntaxException if the grid URL is invalid
      */
-    @Profile("chrome & remote")
+    @Profile({"chrome", "remote"})
     @Bean(destroyMethod = "quit")
     public WebDriver remoteChromeDriver(SeleniumProperties properties, ChromeOptions options)
-            throws MalformedURLException {
+            throws MalformedURLException, URISyntaxException {
         var driver = new RemoteWebDriver(
-                new URL(String.format("%s:%d/wd/hub", properties.getGridHost(), properties.getGridPort())),
+                new URI(String.format("%s:%d/wd/hub", properties.getGridHost(), properties.getGridPort())).toURL(),
                 options);
         navigateAppStartPage(properties, driver);
         return driver;
@@ -83,9 +85,9 @@ public class SeleniumConfiguration {
      * @param options    additional Firefox options
      * @return configured WebDriver
      */
-    @Profile("firefox & local")
+    @Profile({"firefox", "local"})
     @Bean(destroyMethod = "quit")
-    public WebDriver firefox(SeleniumProperties properties, FirefoxOptions options) {
+    public WebDriver localFirefoxDriver(SeleniumProperties properties, FirefoxOptions options) {
         var driver = new FirefoxDriver(options);
         navigateAppStartPage(properties, driver);
         return driver;
@@ -99,13 +101,14 @@ public class SeleniumConfiguration {
      * @param options    additional Firefox options
      * @return configured WebDriver
      * @throws MalformedURLException if the grid URL is invalid
+     * @throws URISyntaxException if the grid URL is invalid
      */
-    @Profile("firefox & remote")
+    @Profile({"firefox", "remote"})
     @Bean(destroyMethod = "quit")
     public WebDriver remoteFirefoxDriver(SeleniumProperties properties, FirefoxOptions options)
-            throws MalformedURLException {
+            throws MalformedURLException, URISyntaxException {
         var driver = new RemoteWebDriver(
-                new URL(String.format("%s:%d/wd/hub", properties.getGridHost(), properties.getGridPort())),
+                new URI(String.format("%s:%d/wd/hub", properties.getGridHost(), properties.getGridPort())).toURL(),
                 options);
         navigateAppStartPage(properties, driver);
         return driver;
