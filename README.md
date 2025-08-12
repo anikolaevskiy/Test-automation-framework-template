@@ -21,6 +21,94 @@ src/test/java
 
 Configuration files for the examples live under `src/main/resources`.
 
+## Configuration Properties
+
+Several `.properties` files under `src/main/resources` control the behaviour of
+drivers and test utilities. Adjust them to match your environment before
+running the tests.
+
+### `application.properties`
+
+Defines which Spring profiles are active by default. For example, to use the
+local Selenium driver:
+
+```properties
+spring.profiles.active=selenium,chrome-local
+```
+
+Other combinations are possible depending on the target environment, for
+example:
+
+```properties
+spring.profiles.active=selenium,chrome-remote  # run against a Selenium Grid
+spring.profiles.active=appium                  # execute tests via Appium
+```
+
+You can override this value on the command line with
+`-Dspring.profiles.active=...`.
+
+### `selenium.properties`
+
+Settings used when Selenium profiles are active:
+
+- `selenium.app-host` / `selenium.app-port` – address of the web application
+  under test.
+- `selenium.grid-host` / `selenium.grid-port` – Selenium Grid endpoint when
+  running remote browsers.
+
+Example:
+
+```properties
+selenium.app-host=localhost
+selenium.app-port=1234
+selenium.grid-host=http://127.0.0.1
+selenium.grid-port=4444
+```
+
+### `appium.properties`
+
+Settings used with the `appium` profile:
+
+- `appium.host` and `appium.port` – location of the Appium server.
+- `appium.device` – target device name or platform.
+- `appium.app` – path to the application under test.
+- `appium.time-out` – driver start‑up timeout in seconds.
+
+Example:
+
+```properties
+appium.host=http://127.0.0.1
+appium.port=4723
+appium.device=android
+appium.app=/path/to/app.apk
+appium.time-out=2
+```
+
+### `server.properties`
+
+Configuration for the example REST client:
+
+```properties
+server.host=http://127.0.0.1
+server.port=1234
+```
+
+### `common.properties`
+
+Shared settings for utilities:
+
+- `retry.attempts` – number of retry attempts for flaky operations.
+- `retry.backoff` – delay between retry attempts in milliseconds.
+- `wait.default-duration` – default explicit wait duration in seconds.
+
+Example:
+
+```properties
+retry.attempts=5
+retry.backoff=1000
+wait.default-duration=30
+```
+
 ## Prerequisites
 
 - Java 21+
