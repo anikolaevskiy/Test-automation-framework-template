@@ -23,7 +23,7 @@ public class AppiumProperties {
     private String host;
 
     /** Appium server port. */
-    private int port;
+    private Integer port;
 
     /** Device name for the session. */
     private String device;

@@ -19,8 +19,8 @@ import org.springframework.context.annotation.PropertySource;
 public class SeleniumProperties {
 
     /** Host name of the remote Selenium server (e.g. Selenium Grid). */
-    private String remoteHost;
+    private String host;
 
     /** Port of the remote Selenium server. */
-    private int remotePort;
+    private Integer port;
 }
