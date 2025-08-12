@@ -10,11 +10,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 /**
- * Configuration that wires a {@link WebDriver} when the {@code selenium} profile is active.
+ * Configuration that wires a {@link WebDriver} when the {@code selenium}
+ * profile is active.
  * <p>
- * Keeping Selenium-specific beans behind a profile allows the rest of the
- * framework to run without a browser. Once enabled this configuration creates
- * a {@link WebDriver} either locally.
+ * Selenium-specific beans are isolated behind profiles so the framework can
+ * run without a browser. When the {@code selenium} profile is combined with a
+ * browser profile such as {@code chrome} or {@code firefox}, this
+ * configuration creates a local {@link WebDriver} and navigates to the
+ * application start page defined in {@link SeleniumProperties}.
  */
 @Profile("selenium")
 @Configuration
@@ -29,11 +32,10 @@ public class SeleniumConfiguration {
     }
 
     /**
-     * Creates the {@link WebDriver} instance.
-     * <p>
-     * Local {@link ChromeDriver}
+     * Creates a local {@link ChromeDriver} and opens the application start page.
      *
      * @param properties Selenium configuration properties
+     * @param options additional Chrome options
      * @return configured WebDriver
      */
     @Profile("chrome")
@@ -45,9 +47,7 @@ public class SeleniumConfiguration {
     }
 
     /**
-     * Creates the {@link WebDriver} instance.
-     * <p>
-     * Local {@link FirefoxDriver}
+     * Creates a local {@link FirefoxDriver} and opens the application start page.
      *
      * @param properties Selenium configuration properties
      * @return configured WebDriver

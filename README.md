@@ -50,14 +50,15 @@ mvn test -Dspring.profiles.active=appium
 
 Profiles can also be set in `src/main/resources/application.properties`.
 
-To execute browser based tests through Selenium use the `selenium` profile:
+To execute browser based tests with Selenium activate the `selenium` profile
+alongside a browser profile such as `chrome` or `firefox`:
 
 ```bash
-mvn test -Dspring.profiles.active=selenium
+mvn test -Dspring.profiles.active="selenium,chrome"
 ```
-Configuration for a remote Selenium server can be provided in
-`src/main/resources/selenium.properties` via `selenium.remote-host` and
-`selenium.remote-port` settings.
+The browser automatically navigates to the application host defined in
+`src/main/resources/selenium.properties` via the `selenium.app-host` and
+optional `selenium.app-port` settings.
 
 ### Start Writing Your Own Tests
 

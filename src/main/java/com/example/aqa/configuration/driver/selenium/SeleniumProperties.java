@@ -18,9 +18,9 @@ import org.springframework.context.annotation.PropertySource;
 @Data
 public class SeleniumProperties {
 
-    /** Host name of the app */
+    /** Host of the application under test. */
     private String appHost;
 
-    /** Port of the app. */
+    /** Port of the application under test. */
     private Integer appPort;
 }
