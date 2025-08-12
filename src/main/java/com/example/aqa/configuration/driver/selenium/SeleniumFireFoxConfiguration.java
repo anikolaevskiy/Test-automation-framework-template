@@ -13,24 +13,56 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * Spring configuration wiring Firefox {@link WebDriver} instances.
+ * <p>
+ * The configuration requires the {@code selenium} and {@code firefox}
+ * profiles. Additional {@code firefox-local} or {@code firefox-remote}
+ * profiles decide whether the browser runs on the current machine or connects
+ * to a Selenium Grid.
+ */
 @Profile({"selenium", "firefox"})
 @Configuration
 @EnableConfigurationProperties(SeleniumProperties.class)
 public class SeleniumFireFoxConfiguration {
 
+    /**
+     * Provides default {@link FirefoxOptions} for all Firefox sessions.
+     *
+     * @return configured Firefox options
+     */
     @Bean
     public FirefoxOptions firefoxOptions() {
         return new FirefoxOptions();
     }
 
+    /**
+     * Creates a {@link WebDriver} that connects to a remote Selenium Grid.
+     *
+     * @param properties selenium connection properties
+     * @param options    browser options
+     * @return remote Firefox driver
+     * @throws MalformedURLException if the grid URL is malformed
+     * @throws URISyntaxException    if the grid URI cannot be constructed
+     */
     @Profile("firefox-remote")
     @Bean(destroyMethod = "quit")
-    public WebDriver remoteFirefoxDriver(SeleniumProperties properties, FirefoxOptions options) throws MalformedURLException, URISyntaxException {
-        var driver = new RemoteWebDriver(new URI(String.format("%s:%d/wd/hub", properties.getGridHost(), properties.getGridPort())).toURL(), options);
+    public WebDriver remoteFirefoxDriver(SeleniumProperties properties, FirefoxOptions options)
+            throws MalformedURLException, URISyntaxException {
+        var driver = new RemoteWebDriver(
+                new URI(String.format("%s:%d/wd/hub", properties.getGridHost(), properties.getGridPort())).toURL(),
+                options);
         navigateAppStartPage(properties, driver);
         return driver;
     }
 
+    /**
+     * Creates a local {@link FirefoxDriver} instance.
+     *
+     * @param properties selenium connection properties
+     * @param options    browser options
+     * @return local Firefox driver
+     */
     @Profile("firefox-local")
     @Bean(destroyMethod = "quit")
     public WebDriver localFirefoxDriver(SeleniumProperties properties, FirefoxOptions options) {
@@ -39,6 +71,12 @@ public class SeleniumFireFoxConfiguration {
         return driver;
     }
 
+    /**
+     * Navigates the supplied driver to the configured application host.
+     *
+     * @param properties selenium connection properties
+     * @param driver     driver to navigate
+     */
     private static void navigateAppStartPage(SeleniumProperties properties, WebDriver driver) {
         if (properties.getAppPort() != null) {
             driver.navigate().to(String.format("%s:%d", properties.getAppHost(), properties.getAppPort()));
