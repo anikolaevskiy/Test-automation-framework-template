@@ -45,6 +45,11 @@ public class SeleniumBasedAppDriver implements AppDriver {
         webDriver.findElement(By.xpath(locator)).sendKeys(text);
     }
 
+    @Override
+    public boolean isDisplayed(String locator) {
+        return webDriver.findElement(By.xpath(locator)).isDisplayed();
+    }
+
     /** {@inheritDoc} */
     @Override
     public void waitObject(String locator) {

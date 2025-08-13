@@ -33,6 +33,8 @@ public interface AppDriver {
      */
     void sendText(String locator, String text);
 
+    boolean isDisplayed(String locator);
+
     /**
      * Waits for an element to become available.
      *

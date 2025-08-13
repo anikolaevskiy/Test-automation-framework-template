@@ -33,6 +33,11 @@ public class MockAppDriver implements AppDriver {
         log.info("Mock sendText on locator: {}, text: {}", locator, text);
     }
 
+    @Override
+    public boolean isDisplayed(String locator) {
+        return true;
+    }
+
     /** {@inheritDoc} */
     @Override
     public void waitObject(String locator) {

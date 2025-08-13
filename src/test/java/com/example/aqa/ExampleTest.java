@@ -1,38 +1,60 @@
 package com.example.aqa;
 
+import com.example.aqa.app.client.example.ElementsPage;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- * Example test demonstrating interactions with the mock application and server.
- * <p>
- * It showcases the typical flow for UI driven tests: waiting for elements,
- * performing actions and verifying results with a {@link org.springframework.retry.support.RetryTemplate}.
- */
+
 @Slf4j
 class ExampleTest extends BaseTest {
 
-    /**
-     * Simple test that clicks a button and verifies the label text using retries.
-     */
+    @Autowired
+    private ElementsPage elementsPage;
+
+
     @Test
     @DisplayName("Example test")
     void exampleTest() {
 
+        log.info("Waiting for input field...");
+        elementsPage.searchInput().waitObject();
+
+        log.info("Checking if search input is displayed...");
+        Assertions.assertThat(elementsPage.searchInput().isDisplayed())
+                .as("Search input should be displayed")
+                .isTrue();
+
+        log.info("Sending text to search input...");
+        elementsPage.searchInput().sendText("anikolaevskiy");
+
         log.info("Waiting for button...");
-        pageExample.someButton().waitObject();
+        elementsPage.searchButton().waitObject();
 
-        log.info("Clicking on the button...");
-        pageExample.someButton().click();
+        log.info("Checking if search button is displayed and has correct text...");
+        Assertions.assertThat(elementsPage.searchButton().isDisplayed())
+                .as("Search button should be displayed")
+                .isTrue();
 
+        Assertions.assertThat(elementsPage.searchButton().getText())
+                .as("Search button text should be 'Search'")
+                .isEqualTo("Search");
+
+        log.info("Clicking on the search button...");
+        elementsPage.searchButton().click();
+
+        log.info("Waiting for user card to be displayed...");
+        elementsPage.userCard().waitObject();
+        elementsPage.userCard().avatar().waitObject();
+
+        //For example
         assertionRetry.execute(context -> {
-            log.info("Getting text from the label...");
-            var text = pageExample.someLabel().getText();
-
-            log.info("Checking if text is correct...");
-            return Assertions.assertThat(text).isEqualTo("Mock text value");
+            log.info("Checking user repository count...");
+            return Assertions.assertThat(Integer.parseInt(elementsPage.userCard().publicReposNumber().getText().replaceAll(" ", "")))
+                    .as("Public repos number should be greater than or equal to 1")
+                    .isGreaterThanOrEqualTo(1);
         });
     }
 }

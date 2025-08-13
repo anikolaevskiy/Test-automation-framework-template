@@ -1,6 +1,5 @@
 package com.example.aqa;
 
-import com.example.aqa.app.client.PageExample;
 import com.example.aqa.app.server.RestApiClient;
 import com.example.aqa.configuration.MainConfiguration;
 import com.example.aqa.junit.extension.ScreenshotOnFailureExtension;
@@ -23,10 +22,6 @@ public class BaseTest {
     @Autowired
     @RegisterExtension
     protected ScreenshotOnFailureExtension screenshotOnFailureExtension;
-
-    /** Example page object used in tests. */
-    @Autowired
-    protected PageExample pageExample;
 
     /** REST API client for server interactions. */
     @Autowired

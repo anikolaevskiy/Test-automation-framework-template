@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 public class AppObject {
 
     /** Driver used to perform actions on the element. */
-    private final AppDriver appDriver;
+    protected final AppDriver appDriver;
 
     /** Locator used to identify the element in the application. */
     private final String locator;
@@ -43,6 +43,10 @@ public class AppObject {
      */
     public void sendText(String text) {
         appDriver.sendText(locator, text);
+    }
+
+    public boolean isDisplayed() {
+        return appDriver.isDisplayed(locator);
     }
 
     /**
