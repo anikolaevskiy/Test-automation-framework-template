@@ -1,6 +1,9 @@
 package com.example.aqa.configuration.rest;
 
+import com.example.aqa.app.server.FeignRestApiClient;
 import com.example.aqa.app.server.RestApiClient;
+import com.example.aqa.app.server.ServerFeignClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,24 +15,20 @@ import org.springframework.context.annotation.Configuration;
  * across tests and can easily swap the implementation if needed.
  */
 @Configuration
+@EnableFeignClients(clients = ServerFeignClient.class)
 @EnableConfigurationProperties(ServerProperties.class)
 public class RestApiClientConfiguration {
 
     /**
-     * Creates a {@link RestApiClient} bean configured with server properties.
-     * <p>
-     * The server details are externalized in {@link ServerProperties} so the
-     * same test code can target different environments simply by changing
-     * configuration files.
+     * Provides a {@link RestApiClient} backed by a Feign HTTP client.
      *
-     * @param serverProperties server connection settings
-     * @return configured REST client
+     * @param serverFeignClient Feign declaration of the server endpoints
+     * @return implementation used in tests
      */
     @Bean
-    public RestApiClient restApiClient(ServerProperties serverProperties) {
-        return new RestApiClient(serverProperties.getHost(), serverProperties.getPort());
+    public RestApiClient restApiClient(ServerFeignClient serverFeignClient) {
+        return new FeignRestApiClient(serverFeignClient);
     }
-
 }
 
 

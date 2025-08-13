@@ -20,6 +20,7 @@
         <appium.java-client.version>9.5.0</appium.java-client.version>
         <lombok.version>1.18.38</lombok.version>
         <rest-assured.version>5.5.5</rest-assured.version>
+        <spring-cloud-openfeign.version>4.1.2</spring-cloud-openfeign.version>
         <assertj-core.version>3.27.3</assertj-core.version>
         <awaitility.version>4.3.0</awaitility.version>
         <jackson-databind.version>2.19.2</jackson-databind.version>
@@ -84,11 +85,17 @@
             <version>${lombok.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>${rest-assured.version}</version>
-        </dependency>
+          <dependency>
+              <groupId>io.rest-assured</groupId>
+              <artifactId>rest-assured</artifactId>
+              <version>${rest-assured.version}</version>
+          </dependency>
+
+          <dependency>
+              <groupId>org.springframework.cloud</groupId>
+              <artifactId>spring-cloud-starter-openfeign</artifactId>
+              <version>${spring-cloud-openfeign.version}</version>
+          </dependency>
 
         <dependency>
             <groupId>org.assertj</groupId>
