@@ -1,5 +1,6 @@
 package com.example.aqa.driver;
 
+import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -16,12 +17,14 @@ public class MockAppDriver implements AppDriver {
 
     /** {@inheritDoc} */
     @Override
+    @Step("Click element located by {locator}")
     public void click(String locator) {
         log.info("Mock click on locator: {}", locator);
     }
 
     /** {@inheritDoc} */
     @Override
+    @Step("Get text from element located by {locator}")
     public String getText(String locator) {
         log.info("Mock getText on locator: {}", locator);
         return "Mock text value";
@@ -29,18 +32,21 @@ public class MockAppDriver implements AppDriver {
 
     /** {@inheritDoc} */
     @Override
+    @Step("Send text {text} to element located by {locator}")
     public void sendText(String locator, String text) {
         log.info("Mock sendText on locator: {}, text: {}", locator, text);
     }
 
     /** {@inheritDoc} */
     @Override
+    @Step("Check if element located by {locator} is displayed")
     public boolean isDisplayed(String locator) {
         return true;
     }
 
     /** {@inheritDoc} */
     @Override
+    @Step("Wait for element located by {locator}")
     public void waitObject(String locator) {
         log.info("Mock waitObject on locator: {}", locator);
     }

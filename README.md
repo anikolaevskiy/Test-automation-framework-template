@@ -152,6 +152,22 @@ mvn test
 The included tests use a mock application driver and a simple REST client. They
 can be used as a reference when adding real Appium or web drivers.
 
+### Generating Allure Reports
+
+Run the tests to produce Allure results and then build the HTML report:
+
+```bash
+mvn test
+mvn allure:report
+```
+
+The report will be available under `target/site/allure-maven-plugin/index.html`.
+To generate and open the report in a temporary web server, execute:
+
+```bash
+mvn allure:serve
+```
+
 ### Selecting Spring Profiles
 
 This project uses Spring profiles to switch between different driver

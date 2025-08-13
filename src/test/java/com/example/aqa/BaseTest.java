@@ -3,6 +3,8 @@ package com.example.aqa;
 import com.example.aqa.app.server.RestApiClient;
 import com.example.aqa.configuration.MainConfiguration;
 import com.example.aqa.junit.extension.ScreenshotOnFailureExtension;
+import io.qameta.allure.junit5.AllureJunit5;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +17,7 @@ import org.springframework.retry.support.RetryTemplate;
  * focused on behaviour while still giving them access to shared beans such as
  * page objects, REST clients and retry logic.
  */
+@ExtendWith(AllureJunit5.class)
 @SpringBootTest(classes = MainConfiguration.class)
 public class BaseTest {
 
