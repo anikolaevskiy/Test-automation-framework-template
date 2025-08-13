@@ -6,7 +6,6 @@ import com.example.aqa.app.server.ServerFeignClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 /**
  * Configuration for the REST API client used in tests.
@@ -15,7 +14,6 @@ import org.springframework.context.annotation.PropertySource;
  * across tests and can easily swap the implementation if needed.
  */
 @Configuration
-@PropertySource("classpath:server.properties")
 @EnableFeignClients(clients = ServerFeignClient.class)
 public class RestApiClientConfiguration {
 

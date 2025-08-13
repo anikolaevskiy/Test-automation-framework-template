@@ -116,15 +116,6 @@ appium.app=/path/to/app.apk
 appium.time-out=2
 ```
 
-### `server.properties`
-
-Configuration for the example REST client:
-
-```properties
-server.host=http://127.0.0.1
-server.port=1234
-```
-
 ### `common.properties`
 
 Shared settings for utilities:
