@@ -27,6 +27,7 @@
         <playwright.version>1.48.0</playwright.version>
         <allure.version>2.29.1</allure.version>
         <allure.maven.plugin.version>2.15.2</allure.maven.plugin.version>
+        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
     </properties>
     <dependencies>
 
@@ -142,6 +143,11 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>io.qameta.allure</groupId>
