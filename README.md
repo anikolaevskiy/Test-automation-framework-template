@@ -60,6 +60,12 @@ spring.profiles.active=playwright,chrome-local # run via Playwright locally
 You can override this value on the command line with
 `-Dspring.profiles.active=...`.
 
+In addition, the REST client reads the `server.host` property which defines the base URL of the sample API. Change it to point at your own server:
+
+```properties
+server.host=https://restful-booker.herokuapp.com
+```
+
 ### `selenium.properties`
 
 Settings used when Selenium profiles are active:
@@ -114,15 +120,6 @@ appium.port=4723
 appium.device=android
 appium.app=/path/to/app.apk
 appium.time-out=2
-```
-
-### `server.properties`
-
-Configuration for the example REST client:
-
-```properties
-server.host=http://127.0.0.1
-server.port=1234
 ```
 
 ### `common.properties`

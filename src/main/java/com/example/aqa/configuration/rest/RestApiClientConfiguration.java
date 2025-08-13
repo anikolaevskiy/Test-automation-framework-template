@@ -1,9 +1,15 @@
 package com.example.aqa.configuration.rest;
 
+import com.example.aqa.app.server.FeignRestApiClient;
 import com.example.aqa.app.server.RestApiClient;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import com.example.aqa.app.server.ServerFeignClient;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 /**
  * Configuration for the REST API client used in tests.
@@ -12,24 +18,25 @@ import org.springframework.context.annotation.Configuration;
  * across tests and can easily swap the implementation if needed.
  */
 @Configuration
-@EnableConfigurationProperties(ServerProperties.class)
+@EnableFeignClients(clients = ServerFeignClient.class)
+@Import(FeignAutoConfiguration.class)
 public class RestApiClientConfiguration {
 
-    /**
-     * Creates a {@link RestApiClient} bean configured with server properties.
-     * <p>
-     * The server details are externalized in {@link ServerProperties} so the
-     * same test code can target different environments simply by changing
-     * configuration files.
-     *
-     * @param serverProperties server connection settings
-     * @return configured REST client
-     */
     @Bean
-    public RestApiClient restApiClient(ServerProperties serverProperties) {
-        return new RestApiClient(serverProperties.getHost(), serverProperties.getPort());
+    public HttpMessageConverters messageConverters() {
+        return new HttpMessageConverters(new MappingJackson2HttpMessageConverter());
     }
 
+    /**
+     * Provides a {@link RestApiClient} backed by a Feign HTTP client.
+     *
+     * @param serverFeignClient Feign declaration of the server endpoints
+     * @return implementation used in tests
+     */
+    @Bean
+    public RestApiClient restApiClient(ServerFeignClient serverFeignClient) {
+        return new FeignRestApiClient(serverFeignClient);
+    }
 }
 
 
