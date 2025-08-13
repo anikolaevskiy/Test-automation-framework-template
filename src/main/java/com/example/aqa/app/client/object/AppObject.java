@@ -45,6 +45,11 @@ public class AppObject {
         appDriver.sendText(locator, text);
     }
 
+    /**
+     * Indicates whether the element represented by this object is displayed.
+     *
+     * @return {@code true} if the element is displayed, {@code false} otherwise
+     */
     public boolean isDisplayed() {
         return appDriver.isDisplayed(locator);
     }

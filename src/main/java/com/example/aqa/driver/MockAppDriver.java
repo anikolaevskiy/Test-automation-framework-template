@@ -33,6 +33,7 @@ public class MockAppDriver implements AppDriver {
         log.info("Mock sendText on locator: {}, text: {}", locator, text);
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean isDisplayed(String locator) {
         return true;

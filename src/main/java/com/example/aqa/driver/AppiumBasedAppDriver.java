@@ -45,6 +45,7 @@ public class AppiumBasedAppDriver implements AppDriver {
         appiumDriver.findElement(By.xpath(locator)).sendKeys(text);
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean isDisplayed(String locator) {
         return appiumDriver.findElement(By.xpath(locator)).isDisplayed();
