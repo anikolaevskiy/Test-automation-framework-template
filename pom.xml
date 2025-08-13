@@ -25,6 +25,8 @@
         <jackson-databind.version>2.19.2</jackson-databind.version>
         <selenium.version>4.21.0</selenium.version>
         <playwright.version>1.48.0</playwright.version>
+        <allure.version>2.29.1</allure.version>
+        <allure.maven.plugin.version>2.15.2</allure.maven.plugin.version>
     </properties>
     <dependencies>
 
@@ -127,6 +129,12 @@
             <artifactId>playwright</artifactId>
             <version>${playwright.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-junit5</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -134,6 +142,11 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allure.maven.plugin.version}</version>
             </plugin>
         </plugins>
     </build>

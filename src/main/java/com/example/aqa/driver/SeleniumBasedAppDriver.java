@@ -1,5 +1,6 @@
 package com.example.aqa.driver;
 
+import io.qameta.allure.Step;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
@@ -26,6 +27,7 @@ public class SeleniumBasedAppDriver implements AppDriver {
 
     /** {@inheritDoc} */
     @Override
+    @Step("Click element located by {locator}")
     public void click(String locator) {
         log.info("Clicking on element with locator: {} by selenium driver", locator);
         webDriver.findElement(By.xpath(locator)).click();
@@ -33,6 +35,7 @@ public class SeleniumBasedAppDriver implements AppDriver {
 
     /** {@inheritDoc} */
     @Override
+    @Step("Get text from element located by {locator}")
     public String getText(String locator) {
         log.info("Getting text from element with locator: {} by selenium driver", locator);
         return webDriver.findElement(By.xpath(locator)).getText();
@@ -40,6 +43,7 @@ public class SeleniumBasedAppDriver implements AppDriver {
 
     /** {@inheritDoc} */
     @Override
+    @Step("Send text {text} to element located by {locator}")
     public void sendText(String locator, String text) {
         log.info("Sending text '{}' to element with locator: {} by selenium driver", text, locator);
         webDriver.findElement(By.xpath(locator)).sendKeys(text);
@@ -47,12 +51,14 @@ public class SeleniumBasedAppDriver implements AppDriver {
 
     /** {@inheritDoc} */
     @Override
+    @Step("Check if element located by {locator} is displayed")
     public boolean isDisplayed(String locator) {
         return webDriver.findElement(By.xpath(locator)).isDisplayed();
     }
 
     /** {@inheritDoc} */
     @Override
+    @Step("Wait for element located by {locator}")
     public void waitObject(String locator) {
         log.info("Waiting for element with locator: {} by selenium driver", locator);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));

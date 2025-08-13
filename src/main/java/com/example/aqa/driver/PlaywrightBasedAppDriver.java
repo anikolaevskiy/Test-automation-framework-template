@@ -1,6 +1,7 @@
 package com.example.aqa.driver;
 
 import com.microsoft.playwright.Page;
+import io.qameta.allure.Step;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,6 +21,7 @@ public class PlaywrightBasedAppDriver implements AppDriver {
 
     /** {@inheritDoc} */
     @Override
+    @Step("Click element located by {locator}")
     public void click(String locator) {
         log.info("Clicking on element with locator: {} by playwright driver", locator);
         page.locator(locator).click();
@@ -27,6 +29,7 @@ public class PlaywrightBasedAppDriver implements AppDriver {
 
     /** {@inheritDoc} */
     @Override
+    @Step("Get text from element located by {locator}")
     public String getText(String locator) {
         log.info("Getting text from element with locator: {} by playwright driver", locator);
         return page.locator(locator).innerText();
@@ -34,6 +37,7 @@ public class PlaywrightBasedAppDriver implements AppDriver {
 
     /** {@inheritDoc} */
     @Override
+    @Step("Send text {text} to element located by {locator}")
     public void sendText(String locator, String text) {
         log.info("Sending text '{}' to element with locator: {} by playwright driver", text, locator);
         page.locator(locator).fill(text);
@@ -41,12 +45,14 @@ public class PlaywrightBasedAppDriver implements AppDriver {
 
     /** {@inheritDoc} */
     @Override
+    @Step("Check if element located by {locator} is displayed")
     public boolean isDisplayed(String locator) {
         return page.locator(locator).isVisible();
     }
 
     /** {@inheritDoc} */
     @Override
+    @Step("Wait for element located by {locator}")
     public void waitObject(String locator) {
         log.info("Waiting for element with locator: {} by playwright driver", locator);
         page.locator(locator).waitFor();
