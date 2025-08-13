@@ -1,9 +1,14 @@
 package com.example.aqa.configuration.driver.waiter;
 
+import com.example.aqa.configuration.driver.appium.AppiumConfiguration;
+import com.example.aqa.configuration.driver.selenium.SeleniumChromeConfiguration;
+import com.example.aqa.configuration.driver.selenium.SeleniumFireFoxConfiguration;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import java.time.Duration;
 
@@ -14,6 +19,11 @@ import java.time.Duration;
  * can be tuned without modifying source code.
  */
 @Configuration
+@Import({
+        AppiumConfiguration.class,
+        SeleniumChromeConfiguration.class,
+        SeleniumFireFoxConfiguration.class
+})
 @EnableConfigurationProperties(WebDriverWaitProperties.class)
 public class WebDriverWaitConfiguration {
 
@@ -25,7 +35,7 @@ public class WebDriverWaitConfiguration {
      * @return configured WebDriverWait
      */
     @Bean
-    public WebDriverWait webDriverWait(WebDriverWaitProperties properties) {
-        return new WebDriverWait(null, Duration.ofSeconds(properties.getDefaultDuration()));
+    public WebDriverWait webDriverWait(WebDriver webDriver, WebDriverWaitProperties properties) {
+        return new WebDriverWait(webDriver, Duration.ofSeconds(properties.getDefaultDuration()));
     }
 }

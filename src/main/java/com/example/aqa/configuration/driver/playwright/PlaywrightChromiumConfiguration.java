@@ -43,11 +43,13 @@ public class PlaywrightChromiumConfiguration {
     @Profile("chrome-remote")
     @Bean(destroyMethod = "close")
     public Page remoteChromiumPage(PlaywrightProperties properties) throws URISyntaxException {
-        var playwright = Playwright.create();
-        var browser = playwright.chromium().connectOverCDP(new URI(String.format("%s:%d", properties.getGridHost(), properties.getGridPort())).toString());
-        var page = browser.newPage();
-        navigateAppStartPage(properties, page);
-        return page;
+        try (var playwright = Playwright.create()) {
+            var chromium = playwright.chromium();
+            var browser = chromium.connectOverCDP(new URI(String.format("%s:%d", properties.getGridHost(), properties.getGridPort())).toString());
+            var page = browser.newPage();
+            navigateAppStartPage(properties, page);
+            return page;
+        }
     }
 
     /**
@@ -60,11 +62,13 @@ public class PlaywrightChromiumConfiguration {
     @Profile("chrome-local")
     @Bean(destroyMethod = "close")
     public Page localChromiumPage(PlaywrightProperties properties, BrowserType.LaunchOptions options) {
-        var playwright = Playwright.create();
-        var browser = playwright.chromium().launch(options);
-        var page = browser.newPage();
-        navigateAppStartPage(properties, page);
-        return page;
+        try (var playwright = Playwright.create()) {
+            var chromium = playwright.chromium();
+            var browser = chromium.launch(options);
+            var page = browser.newPage();
+            navigateAppStartPage(properties, page);
+            return page;
+        }
     }
 
     /**

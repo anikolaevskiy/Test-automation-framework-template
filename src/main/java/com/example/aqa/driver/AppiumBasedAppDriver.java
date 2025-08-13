@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
@@ -19,7 +20,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class AppiumBasedAppDriver implements AppDriver {
 
     /** Underlying Appium driver executing real commands. */
-    private final AppiumDriver appiumDriver;
+    private final WebDriver appiumDriver;
 
     private final WebDriverWait wait;
 
