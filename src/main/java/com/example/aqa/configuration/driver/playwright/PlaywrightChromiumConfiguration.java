@@ -30,7 +30,7 @@ public class PlaywrightChromiumConfiguration {
      */
     @Bean
     public BrowserType.LaunchOptions chromiumLaunchOptions() {
-        return new BrowserType.LaunchOptions();
+        return new BrowserType.LaunchOptions().setHeadless(false);
     }
 
     /**
@@ -43,13 +43,13 @@ public class PlaywrightChromiumConfiguration {
     @Profile("chrome-remote")
     @Bean(destroyMethod = "close")
     public Page remoteChromiumPage(PlaywrightProperties properties) throws URISyntaxException {
-        try (var playwright = Playwright.create()) {
-            var chromium = playwright.chromium();
-            var browser = chromium.connectOverCDP(new URI(String.format("%s:%d", properties.getGridHost(), properties.getGridPort())).toString());
-            var page = browser.newPage();
-            navigateAppStartPage(properties, page);
-            return page;
-        }
+        var playwright = Playwright.create();
+        var chromium = playwright.chromium();
+        var browser = chromium.connectOverCDP(new URI(String.format("%s:%d", properties.getGridHost(), properties.getGridPort())).toString());
+        var page = browser.newPage();
+        navigateAppStartPage(properties, page);
+        return page;
+
     }
 
     /**
@@ -62,14 +62,14 @@ public class PlaywrightChromiumConfiguration {
     @Profile("chrome-local")
     @Bean(destroyMethod = "close")
     public Page localChromiumPage(PlaywrightProperties properties, BrowserType.LaunchOptions options) {
-        try (var playwright = Playwright.create()) {
-            var chromium = playwright.chromium();
-            var browser = chromium.launch(options);
-            var page = browser.newPage();
-            navigateAppStartPage(properties, page);
-            return page;
-        }
+        var playwright = Playwright.create();
+        var chromium = playwright.chromium();
+        var browser = chromium.launch(options);
+        var page = browser.newPage();
+        navigateAppStartPage(properties, page);
+        return page;
     }
+
 
     /**
      * Navigates the provided page to the application start page.

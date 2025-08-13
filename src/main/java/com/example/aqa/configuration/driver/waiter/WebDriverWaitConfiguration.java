@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 
 import java.time.Duration;
 
@@ -24,6 +25,7 @@ import java.time.Duration;
         SeleniumChromeConfiguration.class,
         SeleniumFireFoxConfiguration.class
 })
+@Profile({"selenium", "appium"})
 @EnableConfigurationProperties(WebDriverWaitProperties.class)
 public class WebDriverWaitConfiguration {
 
