@@ -39,6 +39,7 @@ public class PlaywrightBasedAppDriver implements AppDriver {
         page.locator(locator).fill(text);
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean isDisplayed(String locator) {
         return page.locator(locator).isVisible();

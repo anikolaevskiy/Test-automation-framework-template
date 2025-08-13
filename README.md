@@ -26,6 +26,13 @@ src/test/java
 
 Configuration files for the examples live under `src/main/resources`.
 
+## Sample Page Objects and Test
+
+The project includes a small demonstration feature composed of the
+`ElementsPage` and `UserCard` page objects along with `ExampleTest`. These
+classes showcase how to build reusable page components and how to verify
+visibility using the new `isDisplayed` method on `AppDriver` implementations.
+
 ## Configuration Properties
 
 Several `.properties` files under `src/main/resources` control the behaviour of

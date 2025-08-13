@@ -33,6 +33,12 @@ public interface AppDriver {
      */
     void sendText(String locator, String text);
 
+    /**
+     * Checks whether an element identified by the provided locator is displayed.
+     *
+     * @param locator element locator
+     * @return {@code true} if the element is displayed, {@code false} otherwise
+     */
     boolean isDisplayed(String locator);
 
     /**
