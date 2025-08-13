@@ -37,14 +37,12 @@ public class PlaywrightChromiumConfiguration {
      * Creates a {@link Page} connected to a remote Chromium instance.
      *
      * @param properties Playwright connection properties
-     * @param options    launch options
      * @return remote page
      * @throws URISyntaxException if the endpoint URI is invalid
      */
     @Profile("chrome-remote")
     @Bean(destroyMethod = "close")
-    public Page remoteChromiumPage(PlaywrightProperties properties, BrowserType.LaunchOptions options)
-            throws URISyntaxException {
+    public Page remoteChromiumPage(PlaywrightProperties properties) throws URISyntaxException {
         var playwright = Playwright.create();
         var browser = playwright.chromium().connectOverCDP(new URI(String.format("%s:%d", properties.getGridHost(), properties.getGridPort())).toString());
         var page = browser.newPage();

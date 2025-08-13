@@ -6,6 +6,11 @@ testing, and optional Appium and Selenium integrations for mobile and web
 automation. The framework contains examples of page objects, REST clients,
 custom JUnit extensions and configuration classes.
 
+## Prerequisites
+
+- Java 21+
+- Maven 3+
+
 ## Project Structure
 
 ```
@@ -128,11 +133,6 @@ retry.attempts=5
 retry.backoff=1000
 wait.default-duration=30
 ```
-
-## Prerequisites
-
-- Java 21+
-- Maven 3+
 
 ## Running Tests
 
