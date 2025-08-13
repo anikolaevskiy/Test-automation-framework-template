@@ -1,6 +1,8 @@
 package com.example.aqa.app.server;
 
 import com.example.aqa.app.server.model.Something;
+import com.example.aqa.app.server.model.Token;
+import com.example.aqa.app.server.model.User;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -23,9 +25,27 @@ public class RestApiClient {
      * @param host API host
      * @param port API port
      */
-    public RestApiClient(String host, int port) {
-        RestAssured.baseURI = String.format("%s:%d", host, port);
+    public RestApiClient(String host, Integer port) {
+
+        if (port != null) {
+            RestAssured.baseURI = String.format("%s:%d", host, port);
+        } else {
+            RestAssured.baseURI = String.format(host);
+        }
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+    }
+
+
+    public Token auth(String username, String password) {
+        return RestAssured.given()
+                .body(new User(username, password))
+                .when()
+                .contentType("application/json")
+                .post("/auth")
+                .then()
+                .extract()
+                .response()
+                .as(Token.class);
     }
 
     /**
@@ -35,30 +55,30 @@ public class RestApiClient {
      */
     public Something getSomething() {
         return RestAssured.given()
-                        .when()
-                        .get("/something")
-                        .then()
-                        .extract()
-                        .response()
-                        .as(Something.class);
+                .when()
+                .get("/something")
+                .then()
+                .extract()
+                .response()
+                .as(Something.class);
     }
 
     /**
      * Sends a request to create a {@link Something} entity on the server.
      *
      * @param stringValue string value to set
-     * @param intValue integer value to set
+     * @param intValue    integer value to set
      * @return created object returned by the server
      */
     public Something createSomething(String stringValue, int intValue) {
         return RestAssured.given()
-                        .body(new Something(stringValue, intValue))
-                        .when()
-                        .put("/something")
-                        .then()
-                        .extract()
-                        .response()
-                        .as(Something.class);
+                .body(new Something(stringValue, intValue))
+                .when()
+                .put("/something")
+                .then()
+                .extract()
+                .response()
+                .as(Something.class);
     }
 }
 

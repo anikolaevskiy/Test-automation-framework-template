@@ -22,5 +22,5 @@ public class ServerProperties {
     private String host;
 
     /** Server port number. */
-    private int port;
+    private Integer port;
 }
