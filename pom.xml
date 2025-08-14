@@ -23,13 +23,26 @@
         <assertj-core.version>3.27.3</assertj-core.version>
         <awaitility.version>4.3.0</awaitility.version>
         <jackson-databind.version>2.17.2</jackson-databind.version>
-        <selenium.version>4.21.0</selenium.version>
+        <selenium.version>4.34.0</selenium.version>
         <playwright.version>1.48.0</playwright.version>
         <allure.version>2.29.1</allure.version>
         <allure.maven.plugin.version>2.15.2</allure.maven.plugin.version>
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
         <aspectj.version>1.9.21</aspectj.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-bom</artifactId>
+                <version>${selenium.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
 
         <dependency>
@@ -54,6 +67,12 @@
         <dependency>
             <groupId>org.springframework.retry</groupId>
             <artifactId>spring-retry</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>${spring-cloud-openfeign.version}</version>
         </dependency>
 
         <dependency>
@@ -84,12 +103,6 @@
             <version>${lombok.version}</version>
         </dependency>
 
-          <dependency>
-              <groupId>org.springframework.cloud</groupId>
-              <artifactId>spring-cloud-starter-openfeign</artifactId>
-              <version>${spring-cloud-openfeign.version}</version>
-          </dependency>
-
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
@@ -110,20 +123,7 @@
 
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-remote-driver</artifactId>
-            <version>${selenium.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-chrome-driver</artifactId>
-            <version>${selenium.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-firefox-driver</artifactId>
-            <version>${selenium.version}</version>
+            <artifactId>selenium-java</artifactId>
         </dependency>
 
         <dependency>
