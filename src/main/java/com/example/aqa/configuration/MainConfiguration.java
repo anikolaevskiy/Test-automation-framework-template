@@ -14,7 +14,6 @@ import com.example.aqa.driver.MockAppDriver;
 import com.example.aqa.driver.SeleniumBasedAppDriver;
 import com.example.aqa.driver.PlaywrightBasedAppDriver;
 import com.microsoft.playwright.Page;
-import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.context.annotation.*;
@@ -46,7 +45,7 @@ public class MainConfiguration {
     /**
      * Provides the {@link AppDriver} used in tests.
      * <p>
-     * The mock driver is activated by the {@code mock} profile and is intended
+     * The mock driver is the default implementation used when no specific profile set
      * for quick feedback during framework development or when no real
      * application is available. Keeping it behind a profile allows the same
      * tests to be executed in a lightweight mode without external

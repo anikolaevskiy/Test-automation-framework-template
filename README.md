@@ -84,9 +84,13 @@ server.host=https://restful-booker.herokuapp.com
    ```java
    @Component
    public class LoginPage {
+   
        private final AppDriver driver;
+   
        public LoginPage(AppDriver driver) { this.driver = driver; }
+   
        public AppObject username() { return new AppObject(driver, "//input[@id='user']"); }
+   
        public AppObject submit()   { return new AppObject(driver, "//button[@id='login']"); }
    }
    ```
@@ -96,7 +100,9 @@ server.host=https://restful-booker.herokuapp.com
 
    ```java
    class LoginTest extends BaseTest {
-       @Autowired private LoginPage loginPage;
+   
+       @Autowired
+       private LoginPage loginPage;
 
        @Test
        void userCanLogIn() {
@@ -155,7 +161,7 @@ server.host=https://restful-booker.herokuapp.com
      ```java
      @Override
      public BookingResponse createBooking(BookingRequest body) {
-         return client.createBooking(body);
+         return serverFeignClient.createBooking(body);
      }
      ```
 
@@ -164,9 +170,11 @@ server.host=https://restful-booker.herokuapp.com
 
    ```java
    @Test
-   void createsEntity() {
+   void apiExampleTest() {
+       //...
        var token = restApiClient.auth("user", "pass");
-       var entity = restApiClient.createSomething("text", 1);
+       //...
+       var entity = restApiClient.createBooking( new BookingRequest("John", "Doe"));
        // assertions...
    }
    ```
@@ -209,10 +217,10 @@ mvn allure:serve
 ## 8. Useful Commands
 
 ```bash
-mvn -q clean                                    # remove build outputs
-mvn test                                        # run tests with mock driver
+mvn -q clean                                               # remove build outputs
+mvn test                                                   # run tests with profiles from application.properties
 mvn test -Dspring.profiles.active="selenium,chrome,local"  # use Selenium
-mvn allure:serve                                # generate and open Allure report
+mvn allure:serve                                           # generate and open Allure report
 ```
 
 ---
