@@ -6,6 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestWatcher;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.concurrent.Callable;
+
 /**
  * Example of JUnit 5 extension that takes a screenshot on test failure.
  * <p>
@@ -16,6 +20,8 @@ import org.junit.jupiter.api.extension.TestWatcher;
 @Slf4j
 @RequiredArgsConstructor
 public class ScreenshotOnFailureExtension implements TestWatcher {
+
+    private final Callable<byte[]> screenshotAction;
 
     /**
      * Logs and mocks taking a screenshot when the observed test fails.
@@ -28,7 +34,7 @@ public class ScreenshotOnFailureExtension implements TestWatcher {
     public void testFailed(ExtensionContext context, Throwable cause) {
         log.info("Test '{}' failed with exception: {}", context.getDisplayName(), cause.getMessage());
         log.info("Taking screenshot for debugging...");
-//        var screenshot = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
-//        Files.write(Path.of("target", context.getRequiredTestMethod().getName() + ".png"), screenshot);
+        var screenshot = screenshotAction.call();
+        Files.write(Path.of("target", context.getRequiredTestMethod().getName() + ".png"), screenshot);
     }
 }
