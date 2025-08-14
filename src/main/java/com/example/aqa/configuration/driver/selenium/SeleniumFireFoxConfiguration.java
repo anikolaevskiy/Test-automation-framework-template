@@ -48,8 +48,8 @@ public class SeleniumFireFoxConfiguration {
     @Profile("firefox && remote")
     @Bean(destroyMethod = "quit")
     public WebDriver remoteFirefoxDriver(SeleniumProperties properties, FirefoxOptions options) throws MalformedURLException, URISyntaxException {
-        var driver = new RemoteWebDriver(new URI(properties.getGridHost()).toURL(), options);
-        driver.navigate().to(properties.getAppHost());
+        var driver = new RemoteWebDriver(new URI(properties.gridHost()).toURL(), options);
+        driver.navigate().to(properties.appHost());
         return driver;
     }
 
@@ -64,7 +64,7 @@ public class SeleniumFireFoxConfiguration {
     @Bean(destroyMethod = "quit")
     public WebDriver localFirefoxDriver(SeleniumProperties properties, FirefoxOptions options) {
         var driver = new FirefoxDriver(options);
-        driver.navigate().to(properties.getAppHost());
+        driver.navigate().to(properties.appHost());
         return driver;
     }
 }

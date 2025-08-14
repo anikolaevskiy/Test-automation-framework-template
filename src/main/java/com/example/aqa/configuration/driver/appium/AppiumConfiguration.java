@@ -45,9 +45,9 @@ public class AppiumConfiguration {
     @Bean
     public Capabilities capabilities(AppiumProperties properties) {
         return new UiAutomator2Options()
-                .setNewCommandTimeout(Duration.ofMinutes(properties.getTimeOut()))
-                .setDeviceName(properties.getDevice())
-                .setApp(properties.getApp());
+                .setNewCommandTimeout(Duration.ofMinutes(properties.timeOut()))
+                .setDeviceName(properties.device())
+                .setApp(properties.app());
     }
 
     /**
@@ -66,7 +66,7 @@ public class AppiumConfiguration {
     @Bean(destroyMethod = "quit")
     public WebDriver appiumDriver(Capabilities capabilities, AppiumProperties properties) throws MalformedURLException, URISyntaxException {
         return new AppiumDriver(
-                new URI(properties.getHost()).toURL(),
+                new URI(properties.host()).toURL(),
                 capabilities);
     }
 }

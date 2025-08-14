@@ -1,6 +1,5 @@
 package com.example.aqa.configuration.driver.appium;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.PropertySource;
@@ -16,19 +15,5 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value = "classpath:appium.properties")
 @ConfigurationProperties(prefix = "appium")
 @ConfigurationPropertiesScan
-@Data
-public class AppiumProperties {
-
-    /** Appium server host. */
-    private String host;
-
-    /** Device name for the session. */
-    private String device;
-
-    /** Path to the application under test. */
-    private String app;
-
-    /** Command timeout in minutes. */
-    private int timeOut;
-
+public record AppiumProperties(String host, String device, String app, int timeOut) {
 }

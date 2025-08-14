@@ -1,6 +1,5 @@
 package com.example.aqa.configuration.driver.selenium;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.PropertySource;
@@ -15,12 +14,5 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:selenium.properties")
 @ConfigurationProperties(prefix = "selenium")
 @ConfigurationPropertiesScan
-@Data
-public class SeleniumProperties {
-
-    /** Host of the application under test. */
-    private String appHost;
-
-    /** Host of the Selenium grid for remote execution. */
-    private String gridHost;
+public record SeleniumProperties(String appHost, String gridHost) {
 }

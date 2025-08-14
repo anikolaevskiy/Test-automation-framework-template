@@ -51,8 +51,8 @@ public class SeleniumChromeConfiguration {
     @Profile("chrome && remote")
     @Bean(destroyMethod = "quit")
     public WebDriver remoteChromeDriver(SeleniumProperties properties, ChromeOptions options) throws MalformedURLException, URISyntaxException {
-        var driver = new RemoteWebDriver(new URI(properties.getGridHost()).toURL(), options);
-        driver.navigate().to(properties.getAppHost());
+        var driver = new RemoteWebDriver(new URI(properties.gridHost()).toURL(), options);
+        driver.navigate().to(properties.appHost());
         return driver;
     }
 
@@ -67,7 +67,7 @@ public class SeleniumChromeConfiguration {
     @Bean(destroyMethod = "quit")
     public WebDriver localChromeDriver(SeleniumProperties properties, ChromeOptions options) {
         var driver = new ChromeDriver(options);
-        driver.navigate().to(properties.getAppHost());
+        driver.navigate().to(properties.appHost());
         return driver;
     }
 }

@@ -1,6 +1,5 @@
 package com.example.aqa.configuration.driver.playwright;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.PropertySource;
@@ -15,14 +14,6 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:playwright.properties")
 @ConfigurationProperties(prefix = "playwright")
 @ConfigurationPropertiesScan
-@Data
-public class PlaywrightProperties {
-
-    /** Host of the application under test. */
-    private String appHost;
-
-    /** Host of the remote browser endpoint. */
-    private String gridHost;
-
+public record PlaywrightProperties(String appHost, String gridHost) {
 }
 

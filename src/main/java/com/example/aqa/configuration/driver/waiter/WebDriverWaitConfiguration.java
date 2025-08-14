@@ -38,6 +38,6 @@ public class WebDriverWaitConfiguration {
      */
     @Bean
     public WebDriverWait webDriverWait(WebDriver webDriver, WebDriverWaitProperties properties) {
-        return new WebDriverWait(webDriver, Duration.ofSeconds(properties.getDefaultDuration()));
+        return new WebDriverWait(webDriver, Duration.ofSeconds(properties.defaultDuration()));
     }
 }

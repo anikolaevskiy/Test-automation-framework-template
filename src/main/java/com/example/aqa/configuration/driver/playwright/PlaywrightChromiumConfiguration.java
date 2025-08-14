@@ -8,9 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 /**
  * Spring configuration wiring Playwright Chromium {@link Page} instances.
  * <p>
@@ -38,16 +35,15 @@ public class PlaywrightChromiumConfiguration {
      *
      * @param properties Playwright connection properties
      * @return remote page
-     * @throws URISyntaxException if the endpoint URI is invalid
      */
     @Profile("chrome && remote")
     @Bean(destroyMethod = "close")
-    public Page remoteChromiumPage(PlaywrightProperties properties) throws URISyntaxException {
+    public Page remoteChromiumPage(PlaywrightProperties properties) {
         var playwright = Playwright.create();
         var chromium = playwright.chromium();
-        var browser = chromium.connectOverCDP(properties.getGridHost());
+        var browser = chromium.connectOverCDP(properties.gridHost());
         var page = browser.newPage();
-        page.navigate(properties.getAppHost());
+        page.navigate(properties.appHost());
         return page;
 
     }
@@ -66,7 +62,7 @@ public class PlaywrightChromiumConfiguration {
         var chromium = playwright.chromium();
         var browser = chromium.launch(options);
         var page = browser.newPage();
-        page.navigate(properties.getAppHost());
+        page.navigate(properties.appHost());
         return page;
     }
 }

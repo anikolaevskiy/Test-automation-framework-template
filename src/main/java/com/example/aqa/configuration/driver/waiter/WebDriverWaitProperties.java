@@ -1,6 +1,5 @@
 package com.example.aqa.configuration.driver.waiter;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.PropertySource;
@@ -14,10 +13,5 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value = "classpath:common.properties")
 @ConfigurationProperties(prefix = "wait")
 @ConfigurationPropertiesScan
-@Data
-public class WebDriverWaitProperties {
-
-    /** Default wait time in seconds. */
-    private int defaultDuration;
-
+public record WebDriverWaitProperties(int defaultDuration) {
 }
