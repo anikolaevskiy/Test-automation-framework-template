@@ -45,7 +45,7 @@ public class SeleniumFireFoxConfiguration {
      * @throws MalformedURLException if the grid URL is malformed
      * @throws URISyntaxException    if the grid URI cannot be constructed
      */
-    @Profile("firefox-remote")
+    @Profile("firefox && remote")
     @Bean(destroyMethod = "quit")
     public WebDriver remoteFirefoxDriver(SeleniumProperties properties, FirefoxOptions options) throws MalformedURLException, URISyntaxException {
         var driver = new RemoteWebDriver(new URI(properties.getGridHost()).toURL(), options);
@@ -60,7 +60,7 @@ public class SeleniumFireFoxConfiguration {
      * @param options    browser options
      * @return local Firefox driver
      */
-    @Profile("firefox-local")
+    @Profile("firefox && local")
     @Bean(destroyMethod = "quit")
     public WebDriver localFirefoxDriver(SeleniumProperties properties, FirefoxOptions options) {
         var driver = new FirefoxDriver(options);

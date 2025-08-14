@@ -48,7 +48,7 @@ public class SeleniumChromeConfiguration {
      * @throws MalformedURLException if the grid URL is malformed
      * @throws URISyntaxException    if the grid URI cannot be constructed
      */
-    @Profile("chrome-remote")
+    @Profile("chrome && remote")
     @Bean(destroyMethod = "quit")
     public WebDriver remoteChromeDriver(SeleniumProperties properties, ChromeOptions options) throws MalformedURLException, URISyntaxException {
         var driver = new RemoteWebDriver(new URI(properties.getGridHost()).toURL(), options);
@@ -63,7 +63,7 @@ public class SeleniumChromeConfiguration {
      * @param options    browser options
      * @return local Chrome driver
      */
-    @Profile("chrome-local")
+    @Profile("chrome && local")
     @Bean(destroyMethod = "quit")
     public WebDriver localChromeDriver(SeleniumProperties properties, ChromeOptions options) {
         var driver = new ChromeDriver(options);

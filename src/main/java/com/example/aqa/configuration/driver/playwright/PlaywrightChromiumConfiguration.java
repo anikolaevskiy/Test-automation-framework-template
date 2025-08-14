@@ -40,7 +40,7 @@ public class PlaywrightChromiumConfiguration {
      * @return remote page
      * @throws URISyntaxException if the endpoint URI is invalid
      */
-    @Profile("chrome-remote")
+    @Profile("chrome && remote")
     @Bean(destroyMethod = "close")
     public Page remoteChromiumPage(PlaywrightProperties properties) throws URISyntaxException {
         var playwright = Playwright.create();
@@ -59,7 +59,7 @@ public class PlaywrightChromiumConfiguration {
      * @param options    launch options
      * @return local page
      */
-    @Profile("chrome-local")
+    @Profile("chrome && local")
     @Bean(destroyMethod = "close")
     public Page localChromiumPage(PlaywrightProperties properties, BrowserType.LaunchOptions options) {
         var playwright = Playwright.create();
