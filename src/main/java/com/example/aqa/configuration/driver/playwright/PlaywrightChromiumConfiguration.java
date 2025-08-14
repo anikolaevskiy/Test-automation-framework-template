@@ -45,9 +45,9 @@ public class PlaywrightChromiumConfiguration {
     public Page remoteChromiumPage(PlaywrightProperties properties) throws URISyntaxException {
         var playwright = Playwright.create();
         var chromium = playwright.chromium();
-        var browser = chromium.connectOverCDP(new URI(String.format("%s:%d", properties.getGridHost(), properties.getGridPort())).toString());
+        var browser = chromium.connectOverCDP(properties.getGridHost());
         var page = browser.newPage();
-        navigateAppStartPage(properties, page);
+        page.navigate(properties.getAppHost());
         return page;
 
     }
@@ -66,23 +66,8 @@ public class PlaywrightChromiumConfiguration {
         var chromium = playwright.chromium();
         var browser = chromium.launch(options);
         var page = browser.newPage();
-        navigateAppStartPage(properties, page);
+        page.navigate(properties.getAppHost());
         return page;
-    }
-
-
-    /**
-     * Navigates the provided page to the application start page.
-     *
-     * @param properties Playwright connection properties
-     * @param page       page to navigate
-     */
-    private static void navigateAppStartPage(PlaywrightProperties properties, Page page) {
-        if (properties.getAppPort() != null) {
-            page.navigate(String.format("%s:%d", properties.getAppHost(), properties.getAppPort()));
-        } else {
-            page.navigate(properties.getAppHost());
-        }
     }
 }
 

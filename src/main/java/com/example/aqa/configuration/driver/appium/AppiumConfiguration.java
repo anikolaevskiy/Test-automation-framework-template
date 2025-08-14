@@ -66,7 +66,7 @@ public class AppiumConfiguration {
     @Bean(destroyMethod = "quit")
     public WebDriver appiumDriver(Capabilities capabilities, AppiumProperties properties) throws MalformedURLException, URISyntaxException {
         return new AppiumDriver(
-                new URI(String.format("%s:%d", properties.getHost(), properties.getPort())).toURL(),
+                new URI(properties.getHost()).toURL(),
                 capabilities);
     }
 }

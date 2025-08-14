@@ -21,13 +21,8 @@ public class PlaywrightProperties {
     /** Host of the application under test. */
     private String appHost;
 
-    /** Port of the application under test. */
-    private Integer appPort;
-
     /** Host of the remote browser endpoint. */
     private String gridHost;
 
-    /** Port of the remote browser endpoint. */
-    private Integer gridPort;
 }
 

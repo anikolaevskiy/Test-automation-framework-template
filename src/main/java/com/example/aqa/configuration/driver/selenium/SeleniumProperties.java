@@ -21,12 +21,6 @@ public class SeleniumProperties {
     /** Host of the application under test. */
     private String appHost;
 
-    /** Port of the application under test. */
-    private Integer appPort;
-
     /** Host of the Selenium grid for remote execution. */
     private String gridHost;
-
-    /** Port of the Selenium grid for remote execution. */
-    private Integer gridPort;
 }
