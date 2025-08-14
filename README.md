@@ -46,16 +46,16 @@ Defines which Spring profiles are active by default. For example, to use the
 local Selenium driver:
 
 ```properties
-spring.profiles.active=selenium,chrome-local
+spring.profiles.active=selenium,chrome,local
 ```
 
 Other combinations are possible depending on the target environment, for
 example:
 
 ```properties
-spring.profiles.active=selenium,chrome-remote  # run against a Selenium Grid
+spring.profiles.active=selenium,chrome,remote  # run against a Selenium Grid
 spring.profiles.active=appium                  # execute tests via Appium
-spring.profiles.active=playwright,chrome-local # run via Playwright locally
+spring.profiles.active=playwright,chrome,local # run via Playwright locally
 ```
 
 You can override this value on the command line with
@@ -185,16 +185,16 @@ example:
 
 ```bash
 # run Chrome locally
-mvn test -Dspring.profiles.active="selenium,chrome-local"
+mvn test -Dspring.profiles.active="selenium,chrome,local"
 
 # run Chrome on a remote Selenium Grid
-mvn test -Dspring.profiles.active="selenium,chrome-remote"
+mvn test -Dspring.profiles.active="selenium,chrome,remote"
 
 # run Firefox locally
-mvn test -Dspring.profiles.active="selenium,firefox-local"
+mvn test -Dspring.profiles.active="selenium,firefox,local"
 
 # run Firefox on a remote Selenium Grid
-mvn test -Dspring.profiles.active="selenium,firefox-remote"
+mvn test -Dspring.profiles.active="selenium,firefox,remote"
 ```
 The browser automatically navigates to the application host defined in
 `src/main/resources/selenium.properties` via the `selenium.app-host` and
@@ -209,10 +209,10 @@ remote sessions, to the Chrome debugging endpoint:
 
 ```bash
 # run Chrome locally
-mvn test -Dspring.profiles.active="playwright,chrome-local"
+mvn test -Dspring.profiles.active="playwright,chrome,local"
 
 # connect to a remote Chrome instance
-mvn test -Dspring.profiles.active="playwright,chrome-remote"
+mvn test -Dspring.profiles.active="playwright,chrome,remote"
 ```
 
 ### Start Writing Your Own Tests
