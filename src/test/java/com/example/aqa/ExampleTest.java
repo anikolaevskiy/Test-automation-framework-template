@@ -47,7 +47,7 @@ class ExampleTest extends BaseTest {
                 .isTrue();
 
         log.info("Sending text to search input...");
-        elementsPage.searchInput().sendText("anikolaevskiy");
+        elementsPage.searchInput().sendText(USERNAME);
 
         log.info("Waiting for button...");
         elementsPage.searchButton().waitObject();
