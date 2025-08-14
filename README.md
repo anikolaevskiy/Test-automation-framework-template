@@ -110,7 +110,7 @@ server.host=https://restful-booker.herokuapp.com
 3. **Run the tests** with the desired profile:
 
    ```bash
-   mvn test                                         # uses built-in mock driver
+   mvn test                                         # uses profiles from application.properties (default: mock driver)
    mvn test -Dspring.profiles.active="selenium,chrome,local"
    mvn test -Dspring.profiles.active="appium"
    ```
@@ -126,9 +126,38 @@ server.host=https://restful-booker.herokuapp.com
    server.host=https://restful-booker.herokuapp.com
    ```
 
-2. **Add new endpoints** – declare a method in `RestApiClient`, add the HTTP
-   mapping in `ServerFeignClient` and delegate to it from
-   `FeignRestApiClient`.
+2. **Add new endpoints**
+
+   - **Create request/response models** – add classes under
+     `com.example.aqa.app.client.model` representing the request body and
+     the expected response:
+
+     ```java
+     public record BookingRequest(String firstname, String lastname) {}
+     public record BookingResponse(int bookingid, BookingRequest booking) {}
+     ```
+
+   - **Expose a method in `RestApiClient`:**
+
+     ```java
+     BookingResponse createBooking(BookingRequest body);
+     ```
+
+   - **Map the endpoint in `ServerFeignClient`:**
+
+     ```java
+     @PostMapping("/booking")
+     BookingResponse createBooking(@RequestBody BookingRequest body);
+     ```
+
+   - **Delegate in `FeignRestApiClient`:**
+
+     ```java
+     @Override
+     public BookingResponse createBooking(BookingRequest body) {
+         return client.createBooking(body);
+     }
+     ```
 
 3. **Call the API in tests** – `BaseTest` exposes an injected
    `restApiClient`:
