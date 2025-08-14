@@ -1,8 +1,8 @@
 package com.example.aqa.configuration.rest;
 
-import com.example.aqa.app.server.FeignRestApiClient;
-import com.example.aqa.app.server.RestApiClient;
-import com.example.aqa.app.server.ServerFeignClient;
+import com.example.aqa.app.server.client.feign.AuthFeignClient;
+import com.example.aqa.app.server.client.RestApiClient;
+import com.example.aqa.app.server.client.ServerFeignClient;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
@@ -42,7 +42,7 @@ public class RestApiClientConfiguration {
      */
     @Bean
     public RestApiClient restApiClient(ServerFeignClient serverFeignClient) {
-        return new FeignRestApiClient(serverFeignClient);
+        return new AuthFeignClient(serverFeignClient);
     }
 }
 

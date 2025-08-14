@@ -7,7 +7,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 /**
  * Demonstrates interaction with {@link ElementsPage} and nested page objects.
  */
@@ -17,7 +16,6 @@ class ExampleTest extends BaseTest {
     /** Page object providing access to screen elements. */
     @Autowired
     private ElementsPage elementsPage;
-
 
     /**
      * End-to-end example verifying visibility and interactions on the elements page.

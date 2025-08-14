@@ -1,6 +1,7 @@
-package com.example.aqa.app.server;
+package com.example.aqa.app.server.client.feign;
 
-import com.example.aqa.app.server.model.Something;
+import com.example.aqa.app.server.client.RestApiClient;
+import com.example.aqa.app.server.client.ServerFeignClient;
 import com.example.aqa.app.server.model.Token;
 import com.example.aqa.app.server.model.User;
 import lombok.RequiredArgsConstructor;
@@ -9,10 +10,10 @@ import lombok.RequiredArgsConstructor;
  * {@link RestApiClient} implementation backed by a Feign client.
  * <p>
  * Delegates all operations to the generated {@link ServerFeignClient} while
- * keeping the rest of the framework technology agnostic.
+ * keeping the rest of the framework technology-agnostic.
  */
 @RequiredArgsConstructor
-public class FeignRestApiClient implements RestApiClient {
+public class AuthFeignClient implements RestApiClient {
 
     /** Feign client proxy for the server API. */
     private final ServerFeignClient serverFeignClient;
@@ -23,15 +24,4 @@ public class FeignRestApiClient implements RestApiClient {
         return serverFeignClient.auth(new User(username, password));
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public Something getSomething() {
-        return serverFeignClient.getSomething();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public Something createSomething(String stringValue, int intValue) {
-        return serverFeignClient.createSomething(new Something(stringValue, intValue));
-    }
 }

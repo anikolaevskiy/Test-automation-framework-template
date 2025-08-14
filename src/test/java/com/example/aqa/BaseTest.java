@@ -1,6 +1,6 @@
 package com.example.aqa;
 
-import com.example.aqa.app.server.RestApiClient;
+import com.example.aqa.app.server.client.RestApiClient;
 import com.example.aqa.configuration.MainConfiguration;
 import com.example.aqa.junit.extension.ScreenshotOnFailureExtension;
 import io.qameta.allure.junit5.AllureJunit5;
