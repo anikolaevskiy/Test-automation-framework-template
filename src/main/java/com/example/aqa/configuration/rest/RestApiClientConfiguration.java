@@ -1,8 +1,8 @@
 package com.example.aqa.configuration.rest;
 
-import com.example.aqa.app.server.client.feign.AuthFeignClient;
+import com.example.aqa.app.server.client.FeignBasedRestApiClient;
 import com.example.aqa.app.server.client.RestApiClient;
-import com.example.aqa.app.server.client.ServerFeignClient;
+import com.example.aqa.app.server.client.feign.GitHubFeignClient;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
@@ -19,7 +19,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
  * across tests and can easily swap the implementation if needed.
  */
 @Configuration
-@EnableFeignClients(clients = ServerFeignClient.class)
+@EnableFeignClients(clients = {GitHubFeignClient.class})
 @PropertySource("classpath:server.properties")
 @Import(FeignAutoConfiguration.class)
 public class RestApiClientConfiguration {
@@ -37,12 +37,12 @@ public class RestApiClientConfiguration {
     /**
      * Provides a {@link RestApiClient} backed by a Feign HTTP client.
      *
-     * @param serverFeignClient Feign declaration of the server endpoints
+     * @param gitHubFeignClient Feign client for GitHub API
      * @return implementation used in tests
      */
     @Bean
-    public RestApiClient restApiClient(ServerFeignClient serverFeignClient) {
-        return new AuthFeignClient(serverFeignClient);
+    public RestApiClient restApiClient(GitHubFeignClient gitHubFeignClient) {
+        return new FeignBasedRestApiClient(gitHubFeignClient);
     }
 }
 

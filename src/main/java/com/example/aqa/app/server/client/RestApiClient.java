@@ -1,6 +1,6 @@
 package com.example.aqa.app.server.client;
 
-import com.example.aqa.app.server.model.Token;
+import com.example.aqa.app.server.model.GitHubUser;
 
 /**
  * Common REST API client contract used by tests.
@@ -9,11 +9,10 @@ import com.example.aqa.app.server.model.Token;
 public interface RestApiClient {
 
     /**
-     * Performs authentication and returns an access token.
+     * Retrieves information about a GitHub user.
      *
-     * @param username user name
-     * @param password user password
-     * @return authentication token
+     * @param username GitHub username to get information about
+     * @return GitHub user information
      */
-    Token auth(String username, String password);
+    GitHubUser getUser(String username);
 }

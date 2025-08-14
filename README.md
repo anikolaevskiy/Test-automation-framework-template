@@ -161,7 +161,7 @@ server.host=https://restful-booker.herokuapp.com
      ```java
      @Override
      public BookingResponse createBooking(BookingRequest body) {
-         return serverFeignClient.createBooking(body);
+         return authFeignClient.createBooking(body);
      }
      ```
 

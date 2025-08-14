@@ -22,7 +22,7 @@
         <spring-cloud-openfeign.version>4.1.2</spring-cloud-openfeign.version>
         <assertj-core.version>3.27.3</assertj-core.version>
         <awaitility.version>4.3.0</awaitility.version>
-        <jackson-databind.version>2.19.2</jackson-databind.version>
+        <jackson-databind.version>2.17.2</jackson-databind.version>
         <selenium.version>4.21.0</selenium.version>
         <playwright.version>1.48.0</playwright.version>
         <allure.version>2.29.1</allure.version>
