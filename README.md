@@ -15,23 +15,7 @@ real automation framework is put together and extend it to suit their needs.
 
 ---
 
-## 2. Quick Start
-
-Run the included demo tests with the default mock driver:
-
-```bash
-mvn test
-```
-
-Generate and open an Allure report:
-
-```bash
-mvn allure:serve
-```
-
----
-
-## 3. Project Layout
+## 2. Project Layout
 
 ```
 src/main/java
@@ -47,7 +31,7 @@ Configuration files are stored under `src/main/resources`.
 
 ---
 
-## 4. Configuration
+## 3. Configuration
 
 The framework uses **Spring profiles** and property files to switch between
 execution environments.
@@ -75,18 +59,22 @@ driver settings such as application host, grid URL or device name.
 Example (`selenium.properties`):
 
 ```properties
-selenium.app-host=localhost
-selenium.app-port=1234
-selenium.grid-host=http://127.0.0.1
-selenium.grid-port=4444
+selenium.app-host=https://letcode.in/elements
+selenium.grid-host=http://127.0.0.1:4444/wd/hub
 ```
 
 `common.properties` defines shared utilities like retry counts and default wait
 durations.
 
+`server.properties` defines the target API server for REST requests:
+
+```properties
+server.host=https://restful-booker.herokuapp.com
+```
+
 ---
 
-## 5. Writing Tests
+## 4. Writing Tests
 
 1. **Create page objects** under
    `src/main/java/com/example/aqa/app/client`.  A page object usually exposes
@@ -122,9 +110,36 @@ durations.
 3. **Run the tests** with the desired profile:
 
    ```bash
-   mvn test -Dspring.profiles.active="mock"          # default
+   mvn test                                         # uses built-in mock driver
    mvn test -Dspring.profiles.active="selenium,chrome,local"
    mvn test -Dspring.profiles.active="appium"
+   ```
+
+---
+
+## 5. REST API Requests
+
+1. **Configure the host** – update `src/main/resources/server.properties` with
+   the address of your API server:
+
+   ```properties
+   server.host=https://restful-booker.herokuapp.com
+   ```
+
+2. **Add new endpoints** – declare a method in `RestApiClient`, add the HTTP
+   mapping in `ServerFeignClient` and delegate to it from
+   `FeignRestApiClient`.
+
+3. **Call the API in tests** – `BaseTest` exposes an injected
+   `restApiClient`:
+
+   ```java
+   @Test
+   void createsEntity() {
+       var token = restApiClient.auth("user", "pass");
+       var entity = restApiClient.createSomething("text", 1);
+       // assertions...
+   }
    ```
 
 ---
@@ -165,9 +180,10 @@ mvn allure:serve
 ## 8. Useful Commands
 
 ```bash
-mvn -q clean           # remove build outputs
-mvn test               # run tests
-mvn test -Dsurefire.failIfNoSpecifiedTests=false  # run even with no tests
+mvn -q clean                                    # remove build outputs
+mvn test                                        # run tests with mock driver
+mvn test -Dspring.profiles.active="selenium,chrome,local"  # use Selenium
+mvn allure:serve                                # generate and open Allure report
 ```
 
 ---
@@ -175,6 +191,12 @@ mvn test -Dsurefire.failIfNoSpecifiedTests=false  # run even with no tests
 ## 9. Purpose
 
 This repository aims to be both a learning resource and a skeleton for real
-projects.  Start with the mock setup, plug in real drivers when ready and evolve
+projects. Start with the mock setup, plug in real drivers when ready and evolve
 the code to match your application's needs.
+
+---
+
+## 10. License
+
+This project is provided as-is without any specific license.
 
