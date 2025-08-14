@@ -1,4 +1,4 @@
-package com.example.aqa.driver;
+package com.example.aqa.driver.core;
 
 /**
  * Simple value object representing a locator strategy.

@@ -1,4 +1,4 @@
-package com.example.aqa.driver;
+package com.example.aqa.driver.core;
 
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;

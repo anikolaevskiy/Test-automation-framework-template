@@ -1,5 +1,6 @@
-package com.example.aqa.driver;
+package com.example.aqa.driver.mock;
 
+import com.example.aqa.driver.core.AppDriver;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 

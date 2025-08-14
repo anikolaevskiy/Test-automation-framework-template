@@ -1,5 +1,8 @@
-package com.example.aqa.driver;
+package com.example.aqa.driver.playwright;
 
+import com.example.aqa.driver.core.AbstractAppDriver;
+import com.example.aqa.driver.core.AppDriver;
+import com.example.aqa.driver.core.Locator;
 import com.microsoft.playwright.Page;
 import lombok.extern.slf4j.Slf4j;
 

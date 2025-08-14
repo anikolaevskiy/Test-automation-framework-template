@@ -1,5 +1,8 @@
-package com.example.aqa.driver;
+package com.example.aqa.driver.appium;
 
+import com.example.aqa.driver.core.AbstractAppDriver;
+import com.example.aqa.driver.core.AppDriver;
+import com.example.aqa.driver.core.Locator;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

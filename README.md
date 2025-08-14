@@ -22,6 +22,11 @@ src/main/java
 ├── com.example.aqa.app           # Page objects and REST client
 ├── com.example.aqa.configuration # Spring configuration and properties
 ├── com.example.aqa.driver        # Driver abstractions and implementations
+│   ├── core                      # Shared interfaces and base classes
+│   ├── appium                    # Appium-specific driver
+│   ├── selenium                  # Selenium-specific driver
+│   ├── playwright                # Playwright-specific driver
+│   └── mock                      # Mock driver for tests
 └── com.example.aqa.junit         # JUnit extensions
 
 src/test/java/com.example.aqa     # Example tests

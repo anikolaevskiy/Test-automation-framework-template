@@ -1,6 +1,6 @@
 package com.example.aqa.app.client.object;
 
-import com.example.aqa.driver.AppDriver;
+import com.example.aqa.driver.core.AppDriver;
 import lombok.RequiredArgsConstructor;
 
 /**
