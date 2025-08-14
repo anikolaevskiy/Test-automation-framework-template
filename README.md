@@ -1,82 +1,78 @@
-# Java Test Automation Framework Template
+# Test Automation Framework Template
 
-This project demonstrates a minimal yet extensible setup for building automated
-tests in Java. It combines Spring Boot for dependency management, JUnit 5 for
-testing, and optional Appium, Selenium and Playwright integrations for mobile
-and web automation. The framework contains examples of page objects, REST
-clients, custom JUnit extensions and configuration classes.
+A simple yet flexible starting point for building UI and API tests in Java.  
+The project uses **Spring Boot** for dependency injection, **JUnit 5** for
+testing and provides ready‑to‑use integrations for Selenium, Playwright and
+Appium.  Each component is deliberately small so newcomers can understand how a
+real automation framework is put together and extend it to suit their needs.
 
-## Prerequisites
+---
 
-- Java 21+
-- Maven 3+
+## 1. Requirements
 
-## Project Structure
+- Java 21+
+- Maven 3+
+
+---
+
+## 2. Quick Start
+
+Run the included demo tests with the default mock driver:
+
+```bash
+mvn test
+```
+
+Generate and open an Allure report:
+
+```bash
+mvn allure:serve
+```
+
+---
+
+## 3. Project Layout
 
 ```
 src/main/java
-├── com.example.aqa.app           # Page objects and API client
+├── com.example.aqa.app           # Page objects and REST client
 ├── com.example.aqa.configuration # Spring configuration and properties
-├── com.example.aqa.driver        # Application driver abstractions
-└── com.example.aqa.junit         # JUnit 5 extensions
+├── com.example.aqa.driver        # Driver abstractions and implementations
+└── com.example.aqa.junit         # JUnit extensions
 
-src/test/java
-└── com.example.aqa               # Sample tests using the framework
+src/test/java/com.example.aqa     # Example tests
 ```
 
-Configuration files for the examples live under `src/main/resources`.
+Configuration files are stored under `src/main/resources`.
 
-## Sample Page Objects and Test
+---
 
-The project includes a small demonstration feature composed of the
-`ElementsPage` and `UserCard` page objects along with `ExampleTest`. These
-classes showcase how to build reusable page components and how to verify
-visibility using the `isDisplayed` method and wait for elements with the
-`waitObject` helper on `AppDriver` implementations.
+## 4. Configuration
 
-## Configuration Properties
+The framework uses **Spring profiles** and property files to switch between
+execution environments.
 
-Several `.properties` files under `src/main/resources` control the behaviour of
-drivers and test utilities. Adjust them to match your environment before
-running the tests.
-
-### `application.properties`
-
-Defines which Spring profiles are active by default. For example, to use the
-local Selenium driver:
+### application.properties
+Defines the active profiles. Examples:
 
 ```properties
-spring.profiles.active=selenium,chrome,local
+spring.profiles.active=selenium,chrome,local    # run Chrome locally
+spring.profiles.active=selenium,chrome,remote   # use Selenium Grid
+spring.profiles.active=appium                   # run via Appium
+spring.profiles.active=playwright,chrome,local  # run via Playwright
 ```
 
-Other combinations are possible depending on the target environment, for
-example:
+Override on the command line:
 
-```properties
-spring.profiles.active=selenium,chrome,remote  # run against a Selenium Grid
-spring.profiles.active=appium                  # execute tests via Appium
-spring.profiles.active=playwright,chrome,local # run via Playwright locally
+```bash
+mvn test -Dspring.profiles.active="selenium,chrome,remote"
 ```
 
-You can override this value on the command line with
-`-Dspring.profiles.active=...`.
+### Driver‑specific properties
+`selenium.properties`, `playwright.properties` and `appium.properties` contain
+driver settings such as application host, grid URL or device name.
 
-In addition, the REST client reads the `server.host` property which defines the base URL of the sample API. Change it to point at your own server:
-
-```properties
-server.host=https://restful-booker.herokuapp.com
-```
-
-### `selenium.properties`
-
-Settings used when Selenium profiles are active:
-
-- `selenium.app-host` / `selenium.app-port` – address of the web application
-  under test.
-- `selenium.grid-host` / `selenium.grid-port` – Selenium Grid endpoint when
-  running remote browsers.
-
-Example:
+Example (`selenium.properties`):
 
 ```properties
 selenium.app-host=localhost
@@ -85,164 +81,100 @@ selenium.grid-host=http://127.0.0.1
 selenium.grid-port=4444
 ```
 
-### `playwright.properties`
+`common.properties` defines shared utilities like retry counts and default wait
+durations.
 
-Settings used when Playwright profiles are active:
+---
 
-- `playwright.app-host` / `playwright.app-port` – address of the web
-  application under test. Required for both local and remote sessions.
-- `playwright.grid-host` / `playwright.grid-port` – remote debugging endpoint
-  when connecting to an existing Chrome instance. Omit when running Chrome
-  locally.
+## 5. Writing Tests
 
-Example:
+1. **Create page objects** under
+   `src/main/java/com/example/aqa/app/client`.  A page object usually exposes
+   methods that return `AppObject` instances – lightweight wrappers around a
+   locator and the `AppDriver`.
 
-```properties
-playwright.app-host=localhost
-playwright.app-port=1234
-playwright.grid-host=http://127.0.0.1
-playwright.grid-port=9222
-```
+   ```java
+   @Component
+   public class LoginPage {
+       private final AppDriver driver;
+       public LoginPage(AppDriver driver) { this.driver = driver; }
+       public AppObject username() { return new AppObject(driver, "//input[@id='user']"); }
+       public AppObject submit()   { return new AppObject(driver, "//button[@id='login']"); }
+   }
+   ```
 
-### `appium.properties`
+2. **Create a test class** in `src/test/java/com/example/aqa` and extend
+   `BaseTest` which wires the Spring context, REST client and retry utilities.
 
-Settings used with the `appium` profile:
+   ```java
+   class LoginTest extends BaseTest {
+       @Autowired private LoginPage loginPage;
 
-- `appium.host` and `appium.port` – location of the Appium server.
-- `appium.device` – target device name or platform.
-- `appium.app` – path to the application under test.
-- `appium.time-out` – driver start‑up timeout in seconds.
+       @Test
+       void userCanLogIn() {
+           loginPage.username().sendText("demo");
+           loginPage.submit().click();
+           // assertions...
+       }
+   }
+   ```
 
-Example:
+3. **Run the tests** with the desired profile:
 
-```properties
-appium.host=http://127.0.0.1
-appium.port=4723
-appium.device=android
-appium.app=/path/to/app.apk
-appium.time-out=2
-```
+   ```bash
+   mvn test -Dspring.profiles.active="mock"          # default
+   mvn test -Dspring.profiles.active="selenium,chrome,local"
+   mvn test -Dspring.profiles.active="appium"
+   ```
 
-### `common.properties`
+---
 
-Shared settings for utilities:
+## 6. Extending the Framework
 
-- `retry.attempts` – number of retry attempts for flaky operations.
-- `retry.backoff` – delay between retry attempts in milliseconds.
-- `wait.default-duration` – default explicit wait duration in seconds.
+- **Add a new driver:** implement the `AppDriver` interface and register it in a
+  `@Configuration` class guarded by a Spring profile.
+- **Introduce more page objects or REST clients:** place them under the
+  `com.example.aqa.app` package and inject them into tests.
+- **Create custom JUnit extensions:** add them in the `com.example.aqa.junit`
+  package and include with `@ExtendWith` or `@RegisterExtension`.
+- **Reuse utilities:** the `RetryTemplate` bean from `CommonConfiguration` helps
+  with polling or flaky assertions.
 
-Example:
+This modular approach keeps tests technology‑agnostic while allowing teams to
+plug in the tools that suit their environment.
 
-```properties
-retry.attempts=5
-retry.backoff=1000
-wait.default-duration=30
-```
+---
 
-## Running Tests
+## 7. Allure Reports
 
-Execute all tests with Maven:
+All tests output Allure results to `target/allure-results`. Build a static
+report:
 
 ```bash
-mvn test
-```
-
-The included tests use a mock application driver and a simple REST client. They
-can be used as a reference when adding real Appium or web drivers.
-
-### Generating Allure Reports
-
-Run the tests to produce Allure results and then build the HTML report:
-
-```bash
-mvn test
 mvn allure:report
 ```
 
-The report will be available under `target/site/allure-maven-plugin/index.html`.
-To generate and open the report in a temporary web server, execute:
+Or generate and open it in a temporary server:
 
 ```bash
 mvn allure:serve
 ```
 
-### Selecting Spring Profiles
+---
 
-This project uses Spring profiles to switch between different driver
-implementations. By default the `mock` profile is active which provides a
-light‑weight driver that does not require external infrastructure. To run tests
-against a real Appium server activate the `appium` profile:
+## 8. Useful Commands
 
 ```bash
-mvn test -Dspring.profiles.active=appium
+mvn -q clean           # remove build outputs
+mvn test               # run tests
+mvn test -Dsurefire.failIfNoSpecifiedTests=false  # run even with no tests
 ```
 
-Profiles can also be set in `src/main/resources/application.properties`.
+---
 
-To execute browser based tests with Selenium choose the browser and whether it
-should run locally or on a Selenium Grid by enabling additional profiles. For
-example:
+## 9. Purpose
 
-```bash
-# run Chrome locally
-mvn test -Dspring.profiles.active="selenium,chrome,local"
-
-# run Chrome on a remote Selenium Grid
-mvn test -Dspring.profiles.active="selenium,chrome,remote"
-
-# run Firefox locally
-mvn test -Dspring.profiles.active="selenium,firefox,local"
-
-# run Firefox on a remote Selenium Grid
-mvn test -Dspring.profiles.active="selenium,firefox,remote"
-```
-The browser automatically navigates to the application host defined in
-`src/main/resources/selenium.properties` via the `selenium.app-host` and
-optional `selenium.app-port` settings. When running against a Selenium Grid the
-grid connection details are read from `selenium.grid-host` and
-`selenium.grid-port`.
-
-To execute browser based tests with Playwright choose the browser and whether
-it should run locally or connect to an existing Chrome instance. Ensure
-`src/main/resources/playwright.properties` points to your application and, for
-remote sessions, to the Chrome debugging endpoint:
-
-```bash
-# run Chrome locally
-mvn test -Dspring.profiles.active="playwright,chrome,local"
-
-# connect to a remote Chrome instance
-mvn test -Dspring.profiles.active="playwright,chrome,remote"
-```
-
-### Start Writing Your Own Tests
-
-1. **Choose a profile** – keep the default `mock` profile while developing
-   framework pieces, then switch to `appium`, `selenium` or another custom
-   profile when real infrastructure is available.
-2. **Create page objects** – add classes under
-   `src/main/java/com/example/aqa/app/client` returning `AppObject` instances for
-   the screens you want to exercise.
-3. **Provide a driver** – implement the `AppDriver` interface or extend the
-   supplied ones to interact with your application. Register the implementation
-   in a configuration class and guard it with an appropriate Spring profile.
-4. **Write tests** – place your JUnit 5 tests in
-   `src/test/java/com/example/aqa` and inject the required page objects or
-   clients. Use the `RetryTemplate` bean when verifying asynchronous behaviour.
-
-Following this pattern keeps tests technology‑agnostic and makes switching
-between environments as simple as changing the active profile.
-
-## Extending the Template
-
-- Implement your own `AppDriver` to integrate with Appium, Selenium or another
-  automation tool.
-- Enable the beans in `AppiumConfiguration` or `SeleniumConfiguration` to
-  connect to a real device or browser.
-- Add additional page objects, API clients or JUnit extensions as needed.
-
-## License
-
-This project is provided as-is without any specific license. Use it as a
-starting point for your own testing framework.
+This repository aims to be both a learning resource and a skeleton for real
+projects.  Start with the mock setup, plug in real drivers when ready and evolve
+the code to match your application's needs.
 
