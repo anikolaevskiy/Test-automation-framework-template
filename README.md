@@ -2,9 +2,9 @@
 
 This project demonstrates a minimal yet extensible setup for building automated
 tests in Java. It combines Spring Boot for dependency management, JUnit 5 for
-testing, and optional Appium and Selenium integrations for mobile and web
-automation. The framework contains examples of page objects, REST clients,
-custom JUnit extensions and configuration classes.
+testing, and optional Appium, Selenium and Playwright integrations for mobile
+and web automation. The framework contains examples of page objects, REST
+clients, custom JUnit extensions and configuration classes.
 
 ## Prerequisites
 
@@ -31,7 +31,8 @@ Configuration files for the examples live under `src/main/resources`.
 The project includes a small demonstration feature composed of the
 `ElementsPage` and `UserCard` page objects along with `ExampleTest`. These
 classes showcase how to build reusable page components and how to verify
-visibility using the new `isDisplayed` method on `AppDriver` implementations.
+visibility using the `isDisplayed` method and wait for elements with the
+`waitObject` helper on `AppDriver` implementations.
 
 ## Configuration Properties
 
