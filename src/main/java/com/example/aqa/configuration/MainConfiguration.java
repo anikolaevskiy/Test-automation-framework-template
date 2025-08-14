@@ -55,7 +55,7 @@ public class MainConfiguration {
      * @return mock implementation of the application driver
      */
     @Bean
-    @Profile("mock")
+    @Profile("!appium && !selenium && !playwright")
     public AppDriver mockAppDriver() {
         return new MockAppDriver();
     }
