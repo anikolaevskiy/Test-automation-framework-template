@@ -1,7 +1,9 @@
 package com.example.aqa.configuration;
 
+import com.example.aqa.configuration.app.AppDriverConfiguration;
 import com.example.aqa.configuration.common.CommonConfiguration;
 import com.example.aqa.configuration.driver.selenium.SeleniumChromeConfiguration;
+import com.example.aqa.configuration.driver.selenium.SeleniumConfiguration;
 import com.example.aqa.configuration.driver.selenium.SeleniumFireFoxConfiguration;
 import com.example.aqa.configuration.driver.playwright.PlaywrightChromiumConfiguration;
 import com.example.aqa.configuration.driver.waiter.WebDriverWaitConfiguration;
@@ -23,19 +25,15 @@ import org.springframework.context.annotation.*;
 /**
  * Entry point Spring configuration assembling all framework pieces.
  * <p>
- * The template relies heavily on Spring profiles to keep different
- * technologies isolated. By defining beans behind profiles we can switch
- * between a fast mock implementation and a real Appium backed driver
- * without touching test code or recompiling the project. This class wires
- * together all optional parts so that users can enable only what they need
- * via <code>spring.profiles.active</code> property.
+ * This configuration class is responsible for wiring together all the components needed for the application to function.
+ * It includes configurations for different drivers (Appium, Selenium, Playwright), REST API client, and common utilities.
  */
 @Configuration
 @ComponentScan(basePackages = "com.example.aqa")
 @Import({
+        AppDriverConfiguration.class,
         AppiumConfiguration.class,
-        SeleniumChromeConfiguration.class,
-        SeleniumFireFoxConfiguration.class,
+        SeleniumConfiguration.class,
         PlaywrightChromiumConfiguration.class,
         WebDriverWaitConfiguration.class,
         RestApiClientConfiguration.class,
@@ -43,71 +41,4 @@ import org.springframework.context.annotation.*;
         CommonConfiguration.class
 })
 public class MainConfiguration {
-
-    /**
-     * Provides the {@link ElementInteraction} used in tests.
-     * <p>
-     * The mock driver is the default implementation used when no specific profile set
-     * for quick feedback during framework development or when no real
-     * application is available. Keeping it behind a profile allows the same
-     * tests to be executed in a lightweight mode without external
-     * dependencies.
-     *
-     * @return mock implementation of the application driver
-     */
-    @Bean
-    @Profile("!appium && !selenium && !playwright")
-    public AppDriver mockAppDriver() {
-        return new MockAppDriver();
-    }
-
-    /**
-     * Provides the {@link ElementInteraction} used in tests when running with Appium.
-     * <p>
-     * Beans in the {@code appium} profile are only created when a real device
-     * or simulator is available. Separating it from the mock driver keeps the
-     * default configuration lightweight while still allowing an easy switch to
-     * full end‑to‑end tests.
-     *
-     * @param appiumDriver the Appium driver instance
-     * @return Appium-based implementation of the application driver
-     */
-    @Bean
-    @Profile("appium")
-    public AppDriver appiumBasedAppDriver(AppiumDriver appiumDriver, WebDriverWait webDriverWait) {
-        return new AppiumBasedAppDriver(appiumDriver, webDriverWait);
-    }
-
-    /**
-     * Provides the {@link ElementInteraction} used in tests when running with Selenium.
-     * <p>
-     * Activating the {@code selenium} profile enables browser based testing
-     * without altering test code. This bean adapts the raw {@link WebDriver}
-     * into the framework's {@link ElementInteraction} abstraction.
-     *
-     * @param webDriver the Selenium driver instance
-     * @return Selenium-based implementation of the application driver
-     */
-    @Bean
-    @Profile("selenium")
-    public AppDriver seleniumBasedAppDriver(WebDriver webDriver, WebDriverWait webDriverWait) {
-        return new SeleniumBasedAppDriver(webDriver, webDriverWait);
-    }
-
-    /**
-     * Provides the {@link ElementInteraction} used in tests when running with Playwright.
-     * <p>
-     * Activating the {@code playwright} profile enables browser automation via
-     * Playwright without altering test code. This bean adapts the Playwright
-     * {@link Page} into the framework's {@link ElementInteraction} abstraction.
-     *
-     * @param page the Playwright page instance
-     * @return Playwright-based implementation of the application driver
-     */
-    @Bean
-    @Profile("playwright")
-    public AppDriver playwrightBasedAppDriver(Page page) {
-        return new PlaywrightBasedAppDriver(page);
-    }
-
 }
