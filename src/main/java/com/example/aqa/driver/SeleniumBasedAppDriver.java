@@ -6,6 +6,8 @@ import io.qameta.allure.Step;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -64,5 +66,11 @@ public class SeleniumBasedAppDriver extends AppDriver {
     public void waitObject(String locator) {
         log.info("Waiting for element with locator: {} by selenium driver", locator);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public byte[] takeScreenshot() {
+        return ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
     }
 }

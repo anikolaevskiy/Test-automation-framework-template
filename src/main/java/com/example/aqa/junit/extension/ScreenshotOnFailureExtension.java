@@ -1,6 +1,6 @@
 package com.example.aqa.junit.extension;
 
-import com.example.aqa.tools.Screenshot;
+import com.example.aqa.driver.core.AppDriver;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import java.nio.file.Path;
 @RequiredArgsConstructor
 public class ScreenshotOnFailureExtension implements TestWatcher {
 
-    private final Screenshot screenshot;
+    private final AppDriver appDriver;
 
     /**
      * Logs and mocks taking a screenshot when the observed test fails.
@@ -34,6 +34,7 @@ public class ScreenshotOnFailureExtension implements TestWatcher {
     public void testFailed(ExtensionContext context, Throwable cause) {
         log.info("Test '{}' failed with exception: {}", context.getDisplayName(), cause.getMessage());
         log.info("Taking screenshot for debugging...");
-        Files.write(Path.of("target", context.getRequiredTestMethod().getName() + ".png"), screenshot.get());
+        var screenshot = appDriver.takeScreenshot();
+        Files.write(Path.of("target", context.getRequiredTestMethod().getName() + ".png"), screenshot);
     }
 }

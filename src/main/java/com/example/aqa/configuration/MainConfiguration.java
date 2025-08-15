@@ -15,6 +15,7 @@ import com.example.aqa.driver.MockAppDriver;
 import com.example.aqa.driver.SeleniumBasedAppDriver;
 import com.example.aqa.driver.PlaywrightBasedAppDriver;
 import com.microsoft.playwright.Page;
+import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.context.annotation.*;
@@ -73,7 +74,7 @@ public class MainConfiguration {
      */
     @Bean
     @Profile("appium")
-    public AppDriver appiumBasedAppDriver(WebDriver appiumDriver, WebDriverWait webDriverWait) {
+    public AppDriver appiumBasedAppDriver(AppiumDriver appiumDriver, WebDriverWait webDriverWait) {
         return new AppiumBasedAppDriver(appiumDriver, webDriverWait);
     }
 

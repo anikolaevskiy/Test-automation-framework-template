@@ -8,5 +8,5 @@ package com.example.aqa.driver.core;
  * Selenium, Playwright, and Appium, ensuring they all adhere to the same
  * Abstracted API for element interaction and waiting.
  */
-public abstract class AppDriver implements ElementInteraction, ElementWaiting {
+public abstract class AppDriver implements ElementInteraction, ElementWaiting, ScreenshotCapture {
 }

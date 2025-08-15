@@ -59,5 +59,11 @@ public class PlaywrightBasedAppDriver extends AppDriver {
         log.info("Waiting for element with locator: {} by playwright driver", locator);
         page.locator(locator).waitFor();
     }
+
+    /** {@inheritDoc} */
+    @Override
+    public byte[] takeScreenshot() {
+        return page.screenshot(new Page.ScreenshotOptions().setFullPage(true));
+    }
 }
 

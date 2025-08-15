@@ -7,6 +7,7 @@ import io.qameta.allure.Step;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -23,7 +24,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class AppiumBasedAppDriver extends AppDriver {
 
     /** Underlying Appium driver executing real commands. */
-    private final WebDriver appiumDriver;
+    private final AppiumDriver appiumDriver;
 
     private final WebDriverWait wait;
 
@@ -64,6 +65,12 @@ public class AppiumBasedAppDriver extends AppDriver {
     public void waitObject(String locator) {
         log.info("Waiting for element with locator: {} by appium driver", locator);
         wait.until(driver -> driver.findElement(By.xpath(locator)).isDisplayed());
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public byte[] takeScreenshot() {
+        return appiumDriver.getScreenshotAs(OutputType.BYTES);
     }
 }
 

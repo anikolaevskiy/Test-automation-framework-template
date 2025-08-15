@@ -52,4 +52,9 @@ public class MockAppDriver extends AppDriver {
     public void waitObject(String locator) {
         log.info("Mock waitObject on locator: {}", locator);
     }
+
+    @Override
+    public byte[] takeScreenshot() {
+        return new byte[0];
+    }
 }
