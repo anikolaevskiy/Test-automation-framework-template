@@ -64,7 +64,7 @@ public class AppiumConfiguration {
      * @throws URISyntaxException    if the server URI cannot be constructed
      */
     @Bean(destroyMethod = "quit")
-    public WebDriver appiumDriver(Capabilities capabilities, AppiumProperties properties) throws MalformedURLException, URISyntaxException {
+    public AppiumDriver appiumDriver(Capabilities capabilities, AppiumProperties properties) throws MalformedURLException, URISyntaxException {
         return new AppiumDriver(
                 new URI(properties.host()).toURL(),
                 capabilities);

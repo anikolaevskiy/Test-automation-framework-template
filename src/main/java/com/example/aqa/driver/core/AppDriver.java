@@ -6,7 +6,7 @@ package com.example.aqa.driver.core;
  * <p>
  * This class serves as a foundation for specific driver implementations like
  * Selenium, Playwright, and Appium, ensuring they all adhere to the same
- * interface for element interaction and waiting.
+ * Abstracted API for element interaction and waiting.
  */
 public abstract class AppDriver implements ElementInteraction, ElementWaiting {
 }

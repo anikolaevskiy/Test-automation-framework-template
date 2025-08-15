@@ -116,7 +116,7 @@ server.host=https://restful-booker.herokuapp.com
 3. **Run the tests** with the desired profile:
 
    ```bash
-   mvn test                                         # uses profiles from application.properties (default: mock driver)
+   mvn test # uses profiles from application.properties (default: mock driver)
    mvn test -Dspring.profiles.active="selenium,chrome,local"
    mvn test -Dspring.profiles.active="appium"
    ```
