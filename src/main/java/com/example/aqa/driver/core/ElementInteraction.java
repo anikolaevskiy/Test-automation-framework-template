@@ -1,4 +1,4 @@
-package com.example.aqa.driver;
+package com.example.aqa.driver.core;
 
 /**
  * App driver abstraction for application testing.
@@ -8,7 +8,7 @@ package com.example.aqa.driver;
  * contract minimal encourages small, focused page objects while still enabling
  * complex implementations underneath (Appium, Selenium, mock drivers, etc.).
  */
-public interface AppDriver {
+public interface ElementInteraction {
 
     /**
      * Clicks an element identified by the provided locator.
@@ -40,12 +40,5 @@ public interface AppDriver {
      * @return {@code true} if the element is displayed, {@code false} otherwise
      */
     boolean isDisplayed(String locator);
-
-    /**
-     * Waits for an element to become available.
-     *
-     * @param locator element locator
-     */
-    void waitObject(String locator);
 
 }

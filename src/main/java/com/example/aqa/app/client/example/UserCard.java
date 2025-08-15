@@ -1,7 +1,7 @@
 package com.example.aqa.app.client.example;
 
 import com.example.aqa.app.client.object.AppObject;
-import com.example.aqa.driver.AppDriver;
+import com.example.aqa.driver.core.AppDriver;
 
 /**
  * Page object representing a user's summary card displayed after performing a search.

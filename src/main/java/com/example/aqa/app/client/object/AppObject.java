@@ -1,13 +1,14 @@
 package com.example.aqa.app.client.object;
 
-import com.example.aqa.driver.AppDriver;
+import com.example.aqa.driver.core.AppDriver;
+import com.example.aqa.driver.core.ElementInteraction;
 import lombok.RequiredArgsConstructor;
 
 /**
  * Represents a page element in the application under test.
  * <p>
  * Each instance simply stores a locator and delegates actions to the
- * {@link AppDriver}. Keeping the object this small encourages composition in
+ * {@link ElementInteraction}. Keeping the object this small encourages composition in
  * page classes and ensures the same page objects can be reused regardless of
  * the underlying driver technology.
  */

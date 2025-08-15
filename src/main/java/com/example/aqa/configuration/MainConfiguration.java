@@ -8,7 +8,8 @@ import com.example.aqa.configuration.driver.waiter.WebDriverWaitConfiguration;
 import com.example.aqa.configuration.extension.ExtensionConfiguration;
 import com.example.aqa.configuration.rest.RestApiClientConfiguration;
 import com.example.aqa.configuration.driver.appium.AppiumConfiguration;
-import com.example.aqa.driver.AppDriver;
+import com.example.aqa.driver.core.AppDriver;
+import com.example.aqa.driver.core.ElementInteraction;
 import com.example.aqa.driver.AppiumBasedAppDriver;
 import com.example.aqa.driver.MockAppDriver;
 import com.example.aqa.driver.SeleniumBasedAppDriver;
@@ -43,7 +44,7 @@ import org.springframework.context.annotation.*;
 public class MainConfiguration {
 
     /**
-     * Provides the {@link AppDriver} used in tests.
+     * Provides the {@link ElementInteraction} used in tests.
      * <p>
      * The mock driver is the default implementation used when no specific profile set
      * for quick feedback during framework development or when no real
@@ -60,7 +61,7 @@ public class MainConfiguration {
     }
 
     /**
-     * Provides the {@link AppDriver} used in tests when running with Appium.
+     * Provides the {@link ElementInteraction} used in tests when running with Appium.
      * <p>
      * Beans in the {@code appium} profile are only created when a real device
      * or simulator is available. Separating it from the mock driver keeps the
@@ -77,11 +78,11 @@ public class MainConfiguration {
     }
 
     /**
-     * Provides the {@link AppDriver} used in tests when running with Selenium.
+     * Provides the {@link ElementInteraction} used in tests when running with Selenium.
      * <p>
      * Activating the {@code selenium} profile enables browser based testing
      * without altering test code. This bean adapts the raw {@link WebDriver}
-     * into the framework's {@link AppDriver} abstraction.
+     * into the framework's {@link ElementInteraction} abstraction.
      *
      * @param webDriver the Selenium driver instance
      * @return Selenium-based implementation of the application driver
@@ -93,11 +94,11 @@ public class MainConfiguration {
     }
 
     /**
-     * Provides the {@link AppDriver} used in tests when running with Playwright.
+     * Provides the {@link ElementInteraction} used in tests when running with Playwright.
      * <p>
      * Activating the {@code playwright} profile enables browser automation via
      * Playwright without altering test code. This bean adapts the Playwright
-     * {@link Page} into the framework's {@link AppDriver} abstraction.
+     * {@link Page} into the framework's {@link ElementInteraction} abstraction.
      *
      * @param page the Playwright page instance
      * @return Playwright-based implementation of the application driver

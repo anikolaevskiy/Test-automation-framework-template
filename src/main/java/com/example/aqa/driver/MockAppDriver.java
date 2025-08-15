@@ -1,10 +1,12 @@
 package com.example.aqa.driver;
 
+import com.example.aqa.driver.core.AppDriver;
+import com.example.aqa.driver.core.ElementInteraction;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Mock implementation of {@link AppDriver} for testing purposes.
+ * Mock implementation of {@link ElementInteraction} for testing purposes.
  * <p>
  * The mock driver is intentionally verbose and side‑effect free so the rest of
  * the framework can be exercised without connecting to a real application.
@@ -13,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
  * runnable out of the box.
  */
 @Slf4j
-public class MockAppDriver implements AppDriver {
+public class MockAppDriver extends AppDriver {
 
     /** {@inheritDoc} */
     @Override

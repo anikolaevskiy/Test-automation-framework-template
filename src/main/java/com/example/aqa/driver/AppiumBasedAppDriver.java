@@ -1,5 +1,7 @@
 package com.example.aqa.driver;
 
+import com.example.aqa.driver.core.AppDriver;
+import com.example.aqa.driver.core.ElementInteraction;
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Simple example of Appium-based {@link AppDriver} implementation.
+ * Simple example of Appium-based {@link ElementInteraction} implementation.
  * <p>
  * The methods intentionally delegate directly to the underlying
  * {@link AppiumDriver}. The goal is to keep this layer thin so that teams can
@@ -18,7 +20,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 @Slf4j
 @RequiredArgsConstructor
-public class AppiumBasedAppDriver implements AppDriver {
+public class AppiumBasedAppDriver extends AppDriver {
 
     /** Underlying Appium driver executing real commands. */
     private final WebDriver appiumDriver;

@@ -1,5 +1,7 @@
 package com.example.aqa.driver;
 
+import com.example.aqa.driver.core.AppDriver;
+import com.example.aqa.driver.core.ElementInteraction;
 import io.qameta.allure.Step;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,16 +11,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * {@link AppDriver} implementation backed by Selenium's {@link WebDriver}.
+ * {@link ElementInteraction} implementation backed by Selenium's {@link WebDriver}.
  * <p>
  * The implementation deliberately mirrors {@link AppiumBasedAppDriver} to keep the
  * examples consistent across different technologies. Tests interact with the
- * {@link AppDriver} interface while this class handles low level WebDriver
+ * {@link ElementInteraction} interface while this class handles low level WebDriver
  * calls.
  */
 @Slf4j
 @RequiredArgsConstructor
-public class SeleniumBasedAppDriver implements AppDriver {
+public class SeleniumBasedAppDriver extends AppDriver {
 
     /** Underlying Selenium driver executing commands in a browser. */
     private final WebDriver webDriver;

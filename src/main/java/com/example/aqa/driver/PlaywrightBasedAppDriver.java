@@ -1,20 +1,22 @@
 package com.example.aqa.driver;
 
+import com.example.aqa.driver.core.AppDriver;
+import com.example.aqa.driver.core.ElementInteraction;
 import com.microsoft.playwright.Page;
 import io.qameta.allure.Step;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * {@link AppDriver} implementation backed by Playwright's {@link Page}.
+ * {@link ElementInteraction} implementation backed by Playwright's {@link Page}.
  * <p>
  * The implementation mirrors the Selenium and Appium counterparts while
- * delegating operations to Playwright. Tests remain technology agnostic by
- * interacting only with the {@link AppDriver} interface.
+ * delegating operations to Playwright. Tests remain technology-agnostic by
+ * interacting only with the {@link ElementInteraction} interface.
  */
 @Slf4j
 @RequiredArgsConstructor
-public class PlaywrightBasedAppDriver implements AppDriver {
+public class PlaywrightBasedAppDriver extends AppDriver {
 
     /** Underlying Playwright page executing commands in a browser. */
     private final Page page;
